@@ -12,7 +12,7 @@ import com.espe.distribuidas.catering.modelo.Usuario;
  *
  * @author PabloA
  */
-public class UsuarioDAO extends DefaultGenericDAOImple<Usuario, String> {
+public class UsuarioDAO extends DefaultGenericDAOImple<Usuario, Integer> {
 
     public UsuarioDAO() {
     super(Usuario.class);

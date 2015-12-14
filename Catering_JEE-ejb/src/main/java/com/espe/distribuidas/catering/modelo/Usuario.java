@@ -39,6 +39,13 @@ public class Usuario implements Serializable {
     @Column(name = "CORREO", nullable = false)
     private String correo;   
 
+    public Usuario() {
+    }
+
+    public Usuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     public Integer getIdUsuario() {
         return idUsuario;
     }
