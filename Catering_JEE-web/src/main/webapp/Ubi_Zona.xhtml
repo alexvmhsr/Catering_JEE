@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Menu Principal</title>
+            </f:facet>
+        <link href="#{appBean.baseUrl}resources/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+        <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
+        <link href="#{appBean.baseUrl}resources/css/style.css" type="text/css" rel="stylesheet"/>
+        <link href="#{appBean.baseUrl}resources/css/bootstrap.css.map" type="text/css" rel="stylesheet"/>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+        <style>               
+                .Bimage{background-image:url("resources/images/22.jpg"); }        
+        </style>  
+      
+        <h:graphicImage value="resources/images/24.png" width="100%" />  
+        
+        
+        </h:head>
+        
+        <h:body styleClass="Bimage">
+            
+            <p:layout fullPage="false" class="banner">
+                
+                <p:layoutUnit position="center" style="opacity: 0.8;" closable="true">
+                    <p:tabView scrollable="true">
+                        <p:tab title="Nuevo">
+                            
+                        </p:tab>
+                        
+                    </p:tabView>
+                </p:layoutUnit>
+                <p:layoutUnit position="west" resizable="false" size="30%" collapsible="true" 
+                              style="opacity: 0.8;" header="Menu Principal">
+                    <h:form>
+                        <p:growl autoUpdate="true"/>
+
+                        <p:panelMenu style="width:auto; height: auto;">
+                            <p:submenu label="Bienvenido         #{loginBean.nombre}"> 
+                                <p:menuitem value="Home"  icon="ui-icon-home" outcome="/Principal" />
+                                <p:menuitem value="Cerrar Sesion" actionListener="#{loginBean.cerrarSession()}" 
+                                            oncomplete="logout(xhr, status, args)" icon="ui-icon-key"/>                                    
+                                
+                            </p:submenu>
+                            <p:submenu label="Administrar">
+                                <p:menuitem value="Persona"   ajax="true" icon="ui-icon-person" outcome="/Adm_Pers"/>
+                                <p:menuitem value="Perfiles"   ajax="true" icon="ui-icon-calendar" outcome="/Adm_Perf"/>
+                                <p:menuitem value="Usuario Web"   ajax="true" icon="ui-icon-signal-diag" outcome="/Adm_Usu"/>
+
+                            </p:submenu>
+                            <p:separator />
+                            <p:submenu label="Inventario" > 
+                                <p:menuitem value="Garantia" icon="ui-icon-transferthick-e-w" outcome="/Inv_Gar"/>                             
+                                <p:menuitem value="Activo" icon=" ui-icon-cart" outcome="/Inv_Act"/>
+                                <p:menuitem value="Toma fisica" icon="ui-icon-suitcase" outcome="/Inv_TF"/>
+                            </p:submenu>
+
+                            <p:separator />
+                            <p:submenu label="Ubicacion">
+                                <p:menuitem value="Sede"   ajax="true" icon="ui-icon-pin-s" outcome="/Ubi_Sede"/>
+                                <p:menuitem value="Piso"   ajax="true" icon="ui-icon-pin-w" outcome="/Ubi_Piso"/>
+                                <p:menuitem value="Zona"   ajax="true" icon="ui-icon-search" outcome="/Ubi_Zona"/>
+                            </p:submenu>
+                            <p:separator />
+                            <p:submenu label="Provedores">
+                                <p:menuitem value="Provedor"   ajax="true" icon="ui-icon-contact" outcome="/Pro_Pro"/>
+                                <p:menuitem value="Factura"   ajax="true" icon="ui-icon-clipboard" outcome="/Pro_Fac"/>
+                            </p:submenu>                    
+                        </p:panelMenu>
+                    </h:form>
+
+                </p:layoutUnit>
+            </p:layout>
+        
+            
+        <div class="footer" style="bottom: 0;">
+                    <div class="container" style="bottom: 0;">
+                        <div class="footer-left">
+                            <a href="#"><h:graphicImage value="resources/images/19.png" width="20%" />  </a>
+                        </div>
+                        <div class="footer-right">
+                            <p>Redes Sociales</p>
+                            <ul>
+                                <li><a class="fb" href="#"></a></li>
+                                <li><a class="twitt" href="#"></a></li>
+                                <li><a class="google" href="#"></a></li>
+                                <li><a class="drib" href="#"></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="copyright">
+                            <p>Universidad de las Fuerzas Armadas - "ESPE"</p>
+                        </div>
+                    </div>
+                </div>
+          
+
+        </h:body>
+
+    </f:view>
+</html>
