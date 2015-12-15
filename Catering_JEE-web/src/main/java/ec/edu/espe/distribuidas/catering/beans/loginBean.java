@@ -5,8 +5,10 @@
  */
 package ec.edu.espe.distribuidas.catering.beans;
 
+import com.espe.distribuidas.catering.servicio.UsuarioServicio;
 import java.io.IOException;
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -33,6 +35,8 @@ public class loginBean implements Serializable{
     private final HttpServletRequest httpServletRequest;
     private final FacesContext faceContext;
     
+    @EJB
+    private UsuarioServicio usuarioServicio;
    // Usuario usuario = null;
     //UsuarioFacade uf = new UsuarioFacade();
 
@@ -69,10 +73,10 @@ public class loginBean implements Serializable{
     public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
-   
-            if (nombre.equals("Pablo")  && clave.equals("admin")) {
+        boolean valid = usuarioServicio.validar(nombre, clave);
+            if (valid) {
                 logeado = true;
-                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@ ", nombre.toString());
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenid@ ", nombre);
             } else {
                 logeado = false;
                 msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error",

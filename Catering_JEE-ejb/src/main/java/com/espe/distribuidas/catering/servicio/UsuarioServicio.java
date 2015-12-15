@@ -19,7 +19,7 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
-public class UsuarioServicio implements Serializable{
+public class UsuarioServicio {
 
     @EJB
     private UsuarioDAO usuarioDAO;

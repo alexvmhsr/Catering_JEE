@@ -7,11 +7,15 @@ package com.espe.distribuidas.catering.dao;
 
 import com.espe.distribuidas.catering.common.dao.DefaultGenericDAOImple;
 import com.espe.distribuidas.catering.modelo.Usuario;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author PabloA
  */
+@LocalBean
+@Stateless
 public class UsuarioDAO extends DefaultGenericDAOImple<Usuario, Integer> {
 
     public UsuarioDAO() {

@@ -12,65 +12,42 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Menu Principal</title>
             </f:facet>
-        <link href="#{appBean.baseUrl}resources/css/bootstrap.css" type="text/css" rel="stylesheet"/>
-        <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
-        <link href="#{appBean.baseUrl}resources/css/style.css" type="text/css" rel="stylesheet"/>
-        <link href="#{appBean.baseUrl}resources/css/bootstrap.css.map" type="text/css" rel="stylesheet"/>
-        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-        <style>               
+            <link href="#{appBean.baseUrl}resources/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+            <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
+            <link href="#{appBean.baseUrl}resources/css/style.css" type="text/css" rel="stylesheet"/>
+            <link href="#{appBean.baseUrl}resources/css/bootstrap.css.map" type="text/css" rel="stylesheet"/>
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+            <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+            <style>               
                 .Bimage{background-image:url("resources/images/22.jpg"); width: 100%}        
-        </style>  
-      
-        <h:graphicImage value="resources/images/24.png" width="100%" />  
-        
-        
+            </style>  
+
+            <h:graphicImage value="resources/images/24.png" width="100%" />  
+
+
         </h:head>
-        
+
         <h:body styleClass="Bimage">
-            
+
             <p:layout fullPage="false" class="banner" style="height: 500px">
-                
+
                 <p:layoutUnit position="center" style="opacity: 0.8;" closable="true">
                     <p:tabView scrollable="true">
                         <p:tab title="Nuevo">
                             <h:form>
                                 <p:panel header="Ingresar Usuario">
                                     <h:panelGrid columns="2" width="100%"  >
-                                        
+
                                         <h:outputLabel for="name" value="Name: (@Size(min=2,max=5))" />
                                         <p:inputText id="name" value="#{beanValidationView.name}" label="Name"/>
                                         <p:message for="name" />
                                         <h:outputText value="#{beanValidationView.name}" />
-                                       
-                                        <h:outputLabel for="age" value="Age: (@Min(10) @Max(20))" />
-                                        <p:inputText id="age" value="#{beanValidationView.age}" label="Age"/>
-                                        <p:message for="age" />
-                                        <h:outputText value="#{beanValidationView.age}" />
-
-                                        <h:outputLabel for="amount" value="Amount: (@DecimalMax('99.9'))" />
-                                        <p:inputText id="amount" value="#{beanValidationView.amount}" label="Amount"/>
-                                        <p:message for="amount" />
-                                        <h:outputText value="#{beanValidationView.amount}" />
-
-                                        <h:outputLabel for="amount2" value="Amount: (@Digits(integer=3,fraction=2))" />
-                                        <p:inputText id="amount2" value="#{beanValidationView.amount2}" label="Amount 2"/>
-                                        <p:message for="amount2" />
-                                        <h:outputText value="#{beanValidationView.amount2}" />
-
-                                        <h:outputLabel for="checked" value="Assert: (@AssertTrue)" />
-                                        <p:selectBooleanCheckbox id="checked" value="#{beanValidationView.checked}" />
-                                        <p:message for="checked" />
-                                        <h:outputText/>
 
                                         <p:outputLabel for="input" value="Input"/>
                                         <p:inputText id="input"/>
 
                                         <p:outputLabel for="area" value="Textarea"/>
-                                        <p:inputTextarea id="area"/>
-
-                                        <p:outputLabel for="calendar" value="Calendar"/>
-                                        <p:calendar id="calendar"/>
+                                        <p:inputTextarea id="area"/>                                       
 
                                         <p:outputLabel for="ac" value="AutoComplete"/>
                                         <p:autoComplete id="ac" completeMethod="#{autoCompleteView.completeText}" />
@@ -87,7 +64,7 @@
 
                                         <p:outputLabel for="dialog" value="Dialog" />
                                         <p:commandButton id="dialog" value="Show" icon="ui-icon-extlink" type="button" onclick="PF('dlg').show()" />
-                                        
+
 
                                         <p:dialog header="Login" widgetVar="dlg" resizable="false">
                                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-8">
@@ -110,34 +87,44 @@
 
                             </h:form>
                         </p:tab>
-                        <p:tab title="Editar">
-                           
-                              
-                                 
-                                    
-                                    <h:form id="formLogin" >
-                             
-                                        <p:panel id="basic" header="Ingresar datos"  footer="CCPP"
-                                                 style="margin-top: 50px; margin-bottom:30px; opacity: 0.8; width: inherit;" >                       
-                                            <h:panelGrid columns="2" cellpadding="6" >
-                                                <h:outputLabel for="age" value="Age: (@Min(10) @Max(20))" />
-                                                <p:inputText id="age" value="#{beanValidationView.age}" label="Age"/>
-                                                <p:message for="age" />
-                                                <h:outputText value="#{beanValidationView.age}" />
-
-                                                <h:outputLabel for="amount" value="Amount: (@DecimalMax('99.9'))" />
-                                                <p:inputText id="amount" value="#{beanValidationView.amount}" label="Amount"/>
-                                                <p:message for="amount" />
-                                                <h:outputText value="#{beanValidationView.amount}" />
-
-                                            </h:panelGrid>
-                                        </p:panel>
-
-                                    </h:form>
-                                
-                            
-                        </p:tab>
                         
+                        <p:tab title="Buscar">    
+                            <p:growl id="msj" widgetVar="wmsj" showDetail="true"/>
+                            <p:socket onMessage="handleMessage" channel="/notyfy">
+                            </p:socket>
+
+                            <script type="text/javascript">
+                                function handleMessage(facesmessage) {
+                                    facesmessage.severity = 'info';
+
+                                    PF('wmsj').show([facesmessage]);
+                                }
+                            </script>    
+                            <h:form>
+
+                                <p:dataTable id="tbl" var="usuario" value="#{prueba.listaUsuario}"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                             paginator="true" rows="10" style="margin-bottom:20px">
+
+                                    
+
+                                    <p:column headerText="correo">
+                                        <h:outputText value="#{usuario.correo}" />
+                                    </p:column>
+
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{usuario.nombre}" />
+                                    </p:column>
+
+                                    <p:column headerText="Clave">
+                                        <h:outputText value="#{usuario.contrasenia}" />
+                                    </p:column>
+
+                                </p:dataTable>
+
+                                
+                            </h:form>
+                        </p:tab>
                     </p:tabView>
                 </p:layoutUnit>
                 <p:layoutUnit position="west" resizable="false" size="30%" collapsible="true" 
@@ -150,7 +137,7 @@
                                 <p:menuitem value="Home"  icon="ui-icon-home" outcome="/Principal" />
                                 <p:menuitem value="Cerrar Sesion" actionListener="#{loginBean.cerrarSession()}" 
                                             oncomplete="logout(xhr, status, args)" icon="ui-icon-key"/>                                    
-                                
+
                             </p:submenu>
                             <p:submenu label="Administrar">
                                 <p:menuitem value="Persona"   ajax="true" icon="ui-icon-person" outcome="/Adm_Pers"/>
@@ -159,20 +146,20 @@
 
                             </p:submenu>
                             <p:separator />
-                            <p:submenu label="Inventario" > 
+                            <p:submenu label="Mobiliario" > 
                                 <p:menuitem value="Garantia" icon="ui-icon-transferthick-e-w" outcome="/Inv_Gar"/>                             
                                 <p:menuitem value="Activo" icon=" ui-icon-cart" outcome="/Inv_Act"/>
                                 <p:menuitem value="Toma fisica" icon="ui-icon-suitcase" outcome="/Inv_TF"/>
                             </p:submenu>
 
                             <p:separator />
-                            <p:submenu label="Ubicacion">
+                            <p:submenu label="Alimentación">
                                 <p:menuitem value="Sede"   ajax="true" icon="ui-icon-pin-s" outcome="/Ubi_Sede"/>
                                 <p:menuitem value="Piso"   ajax="true" icon="ui-icon-pin-w" outcome="/Ubi_Piso"/>
                                 <p:menuitem value="Zona"   ajax="true" icon="ui-icon-search" outcome="/Ubi_Zona"/>
                             </p:submenu>
                             <p:separator />
-                            <p:submenu label="Provedores">
+                            <p:submenu label="Servicio">
                                 <p:menuitem value="Provedor"   ajax="true" icon="ui-icon-contact" outcome="/Pro_Pro"/>
                                 <p:menuitem value="Factura"   ajax="true" icon="ui-icon-clipboard" outcome="/Pro_Fac"/>
                             </p:submenu>                    
@@ -181,30 +168,30 @@
 
                 </p:layoutUnit>
             </p:layout>
-        
-            
-        <div class="footer" style="bottom: 0;">
-                    <div class="container" style="bottom: 0;">
-                        <div class="footer-left">
-                            <a href="#"><h:graphicImage value="resources/images/19.png" width="20%" />  </a>
-                        </div>
-                        <div class="footer-right">
-                            <p>Redes Sociales</p>
-                            <ul>
-                                <li><a class="fb" href="#"></a></li>
-                                <li><a class="twitt" href="#"></a></li>
-                                <li><a class="google" href="#"></a></li>
-                                <li><a class="drib" href="#"></a></li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
+
+
+            <div class="footer" style="bottom: 0;">
+                <div class="container" style="bottom: 0;">
+                    <div class="footer-left">
+                        <a href="#"><h:graphicImage value="resources/images/19.png" width="20%" />  </a>
+                    </div>
+                    <div class="footer-right">
+                        <p>Redes Sociales</p>
+                        <ul>
+                            <li><a class="fb" href="#"></a></li>
+                            <li><a class="twitt" href="#"></a></li>
+                            <li><a class="google" href="#"></a></li>
+                            <li><a class="drib" href="#"></a></li>
+                        </ul>
                         <div class="clearfix"></div>
-                        <div class="copyright">
-                            <p>Universidad de las Fuerzas Armadas - "ESPE"</p>
-                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="copyright">
+                        <p>Universidad de las Fuerzas Armadas - "ESPE"</p>
                     </div>
                 </div>
-          
+            </div>
+
 
         </h:body>
 
