@@ -119,7 +119,7 @@ color: #29323c;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	text-align: center;
-	min-height:750px;
+	min-height:350px;
 }
 
 /*--/header-banner--*/
@@ -442,8 +442,8 @@ div#portfoliolist {
 	-o-background-size: cover;
 	-ms-background-size: cover;
 	-moz-background-size: cover;
-	min-height:750px;
-	padding:80px 0;
+	min-height:550px;
+	padding:10px 0;
 }
 .team-info h2{
 	margin:0;
@@ -787,7 +787,7 @@ padding:60px 0;
 	}
 .footer-left{
 	float:left;
-	width:68%;
+	width:40%;
 	}
 .footer-right{
 	float:right;
@@ -877,7 +877,7 @@ padding:60px 0;
 
 }
 .copyright p{
-	font-size:14px;
+	font-size:13px;
 	margin: 0;
 	color:#29323c;
 	}
@@ -1166,11 +1166,11 @@ font-size: 20px;
 }
 @media (max-width: 1024px){
 	.banner-info {
-		margin-top: 132px;
+		margin-top: 72px;
 		}
 	.banner {
 		background: url(../images/7.jpg) no-repeat -83px 0px;
-		min-height: 646px;
+		min-height: 446px;
 		}
 	.arrow-icon.text-center {
 		margin-top: 125px;
@@ -1198,7 +1198,7 @@ width: 66%;
 font-size: 16px;
 }
 	.footer-left {
-		width: 63%;
+		width: 43%;
 		}
 	.footer-right {
 		width: 28%;
@@ -1214,7 +1214,7 @@ font-size: 16px;
 		}
 	.banner {
 		background: url(../images/7.jpg) no-repeat -239px 0px;
-		min-height: 585px;
+		min-height: 385px;
 		}
 	.arrow-icon.text-center {
 		margin-top: 85px;
@@ -1297,7 +1297,7 @@ margin: 27px 0 0 183px;
 		height: 529px;
 		}
 	.footer-left {
-		width: 39%;
+		width: 29%;
 		}
 	.nav-icon img {
 			width: 16%;
@@ -1419,7 +1419,7 @@ margin-top: 71px;
 		height: 506px;
 		}
 	.footer-left {
-		width: 46%;
+		width: 36%;
 		}
 	.nav-icon img{
 		width:15%;
@@ -1459,7 +1459,7 @@ width: 72%;
 @media (max-width: 480px){
 	.banner {
 		background: url(../images/7.jpg) no-repeat -562px 0px;
-		min-height: 534px;
+		min-height: 434px;
 		}
 	.banner-info {
 		margin-top: 100px;
@@ -1545,8 +1545,8 @@ padding: 12px;
 		}
 	.team {
 		background: url("../images/22.jpg") no-repeat -456px 0px;
-		padding: 55px 0;
-		min-height: 674px;
+		padding: 15px 0;
+		min-height: 474px;
 		}
 	.team-grid {
 		float: left;
@@ -1661,14 +1661,14 @@ margin: 50px 0 74px 0;
 		}
 	.footer-left img {
 		float: left;
-		width: 59%;
+		width: 39%;
 		}
 	.footer-left p {
-		font-size: 12px;
-		margin: 9px 0 0 15px;
+		font-size: 10px;
+		margin: 3px 0 0 8px;
 		}
 	.footer-left {
-		width: 28%;
+		width: 18%;
 		}
 	.footer {
 		padding: 40px 0;
@@ -1680,12 +1680,12 @@ margin: 50px 0 74px 0;
 		width: 35%;
 		}
 		.copyright p {
-		margin: 10px 0 0 0;
+		margin: 2px 0 0 0;
 		}
 }
 @media (max-width: 320px){
 	.logo img {
-		width: 70%;
+		width: 50%;
 		}
 	.header-info-right {
 		margin-top: 0px;
@@ -1711,7 +1711,7 @@ margin: 50px 0 74px 0;
 		}
 	.banner {
 		background: url(../images/7.jpg) no-repeat -562px 0px;
-		min-height: 440px;
+		min-height: 240px;
 		}
 	.services {
 		padding: 50px 0;
@@ -1850,7 +1850,7 @@ margin: 49px 0;
 		height: 212px;
 		}
 	.footer-left {
-		width: 31%;
+		width: 21%;
 		float: none;
 		margin: 0 auto;
 		}
@@ -1861,9 +1861,9 @@ margin: 49px 0;
 		}
 		.footer-left img {
 		float: left;
-		width: 100%;
+		width: 60%;
 		}
 		.copyright p {
-			margin: 21px 0 0 0;
+			margin: 2px 0 0 0;
 			}
 }

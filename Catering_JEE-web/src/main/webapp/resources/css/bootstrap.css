@@ -739,23 +739,23 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 408px) {
   .container {
-    width: 750px;
+    width: 450px;
     bottom: 0.1px;
     font-size: 100%;
   }
 }
 @media (min-width: 992px) {
   .container {
-    width: 970px;
+    width: 770px;
       bottom: 0.1px;
        font-size:110%;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .container {
-    width: 1170px;
+    width: 970px;
       bottom: 0.1px;
       font-size: 120%;
   }
