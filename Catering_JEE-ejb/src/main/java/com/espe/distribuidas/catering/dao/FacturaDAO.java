@@ -6,19 +6,20 @@
 package com.espe.distribuidas.catering.dao;
 
 import com.espe.distribuidas.catering.common.dao.DefaultGenericDAOImple;
-import com.espe.distribuidas.catering.modelo.TipoMobiliario;
+import com.espe.distribuidas.catering.modelo.Factura;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 /**
  *
- * @author PabloA
+ * @author Vane
  */
 @LocalBean
 @Stateless
-public class TipoMobiliarioDAO extends DefaultGenericDAOImple<TipoMobiliario, Integer> {
+public class FacturaDAO extends DefaultGenericDAOImple<Factura, Integer>{
     
-    public TipoMobiliarioDAO() {
-    super(TipoMobiliario.class);
+    public FacturaDAO()
+    {
+        super(Factura.class);
     }
 }
