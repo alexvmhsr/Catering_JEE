@@ -35,21 +35,6 @@ public class loginBean implements Serializable{
     private final HttpServletRequest httpServletRequest;
     private final FacesContext faceContext;
     
-    @EJB
-    private UsuarioServicio usuarioServicio;
-   // Usuario usuario = null;
-    //UsuarioFacade uf = new UsuarioFacade();
-
-    public loginBean() {
-       
-        faceContext=FacesContext.getCurrentInstance();
-        httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
-        if(httpServletRequest.getSession().getAttribute("sessionUsuario")!=null)
-        {
-            nombre=httpServletRequest.getSession().getAttribute("sessionUsuario").toString();
-        }
-    }
-    
     public boolean estaLogeado() {
         return logeado;
     }
@@ -69,6 +54,23 @@ public class loginBean implements Serializable{
     public void setClave(String clave) {
         this.clave = clave;
     }
+    
+    @EJB
+    private UsuarioServicio usuarioServicio;
+   // Usuario usuario = null;
+    //UsuarioFacade uf = new UsuarioFacade();
+
+    public loginBean() {
+       
+        faceContext=FacesContext.getCurrentInstance();
+        httpServletRequest=(HttpServletRequest)faceContext.getExternalContext().getRequest();
+        if(httpServletRequest.getSession().getAttribute("sessionUsuario")!=null)
+        {
+            nombre=httpServletRequest.getSession().getAttribute("sessionUsuario").toString();
+        }
+    }
+    
+    
 
     public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
@@ -89,8 +91,7 @@ public class loginBean implements Serializable{
                 context.addCallbackParam("view", "faces/Principal.xhtml");
             }
         
-     
-       
+            
     }
     public void cerrarSession()
     {

@@ -5,15 +5,17 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      template="Pantillas/Plantilla_Login.xhtml">
+      template="Pantillas/newTemplate.xhtml">
     
-    <ui:define name = "contenido">  
+    <ui:define name = "content">  
         
                 <p:growl id="mensajes" sticky="true" showDetail="true" life="3000" />
                 <h:form id="formLogin" >
                     <p:growl id="growl" showDetail="true" />
                     <p:panel id="basic" header="Ingresar Usuario y Contraseña"  footer="Aplicaciones Distribuidas" widgetVar="dlg"
-                             style="margin-top: 150px; margin-bottom:30px; opacity: 0.8; width: inherit;" >                       
+                             style="margin-top: 10px; 
+                                    opacity: 0.9; 
+                                     bottom:5px; width: inherit;" >                       
                         <h:panelGrid columns="2" cellpadding="6" >
 
                             <h:outputLabel for="username" value="Usuario:       " />
@@ -34,6 +36,6 @@
                     </p:panel>
 
                 </h:form>
-    </ui:define>>    
+    </ui:define>   
 </ui:composition>
         

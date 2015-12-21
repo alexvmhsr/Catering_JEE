@@ -10,11 +10,6 @@
         <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
         <link href="#{appBean.baseUrl}resources/css/style.css" type="text/css" rel="stylesheet"/>
         <link href="#{appBean.baseUrl}resources/css/bootstrap.css.map" type="text/css" rel="stylesheet"/>
-
-        <!--web-font-->
-        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'/>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
-        <!--//fonts-->	
         <!-- for-mobile-apps -->
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -37,14 +32,21 @@
                     $('html,h:body').animate({scrollTop: $(this.hash).offset().top}, 1000);
                 });
             });
-
         </script>
         <style>               
             .Bimage{background-image:url("resources/images/22.jpg"); }        
         </style>   
 
         <a href="#"><h:graphicImage value="resources/images/24.png" width="100%"/>  </a>
-
+        <script type="text/javascript">
+            function manejarLogin(xhr, status, args) {
+                if (!args.validationFailed && args.estaLogeado) {
+                    setTimeout(function () {
+                        window.location = args.view;
+                    }, 500);
+                }
+            }
+        </script>
     </h:head>
 
     <h:body styleClass="Bimage">
@@ -77,20 +79,6 @@
             </div>
         </div>
 
-
-
-
-
     </h:body>
-    <script type="text/javascript">
-        //<![CDATA[
-        function manejarLogin(xhr, status, args) {
-            if (!args.validationFailed && args.estaLogeado) {
-                setTimeout(function () {
-                    window.location = args.view;
-                }, 500);
-            }
-        }
-//]]>
-    </script>
+
 </html>
