@@ -57,7 +57,7 @@
                                     <p:submenu label="Divisiones" > 
                                         <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" outcome="/Div_TM"/>                             
                                         <p:menuitem value="Mobiliario" icon="ui-icon-suitcase" /> 
-                                        <p:menuitem value="Alimentación" icon="ui-icon-suitcase" />
+                                        <p:menuitem value="Alimentación" icon="ui-icon-suitcase" outcome="/Div_Ali"/>
                                         <p:menuitem value="Servicio"   ajax="true" icon="ui-icon-search" outcome="/Div_Ser"/>
                                     </p:submenu>
 
@@ -65,15 +65,13 @@
                                     <p:submenu label="Organización">
                                         <p:menuitem value="Tipo de Evento"   ajax="true" icon="ui-icon-pin-s" />
                                         <p:menuitem value="Evento" icon="ui-icon-calendar" />
-                                        <p:menuitem value="Piso"   ajax="true" icon="ui-icon-pin-w" />
-                                        <p:menuitem value="Zona"   ajax="true" icon="ui-icon-search" />
                                     </p:submenu>
                                     <p:separator />
                                     <p:submenu label="Catering">
                                         <p:menuitem value="Paquete"   ajax="true" icon="ui-icon-contact" />
                                         <p:menuitem value="Detalle Mobiliario"   ajax="true" icon="ui-icon-cart" />
                                         <p:menuitem value="Detalle Alimentación"   ajax="true" icon="ui-icon-cart" />
-                                        <p:menuitem value="Detalle Servicio"   ajax="true" icon="ui-icon-cart" outcome="/Div_Ser"/>
+                                        <p:menuitem value="Detalle Servicio"   ajax="true" icon="ui-icon-cart"/>
                                     </p:submenu>                                              
                                 </p:panelMenu>
                             </h:form>

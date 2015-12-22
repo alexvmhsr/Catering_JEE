@@ -8,7 +8,7 @@
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Tipo de Mobiliario</font></h3>
+        <h3 style="margin-top:0"><font color= "black">Gestión de Servicios</font></h3>
 
 
 
@@ -20,7 +20,7 @@
             <p:column filterBy="#{servicio.tipoServicio}" headerText="Tipo de Servicio" style="width: auto;" filterMatchMode="contains" >
                 <h:outputText value="#{servicio.tipoServicio}" />
             </p:column>
-            <p:column filterBy="#{servicio.valor}" headerText="Descripción" style="width: auto;" filterMatchMode="contains" >
+            <p:column headerText="Valor" style="width: auto;" filterMatchMode="contains" >
                 <h:outputText value="#{servicio.valor}" />
             </p:column>
 
@@ -41,7 +41,7 @@
                
                 <p:outputLabel for="valor_servicio" value="Valor C/U:" />
                 <p:inputText id="valor_servicio" value="#{servicioBean.servicio.valor}" style="width: 100%;" required="true" readonly="#{servicioBean.enDetalles}">
-<!--                <f:validateDoubleRange minimum="0.0" maximum="10000.5" />-->
+                <f:validateDoubleRange minimum="0.0" maximum="10000.5" />
                 </p:inputText>
                 <p:message for="valor_servicio" />
                 

@@ -47,6 +47,14 @@ public class AlimentacionBean implements Serializable {
         this.listaAlimentacion = this.alimentacionServicio.ObtenerTodas();
      
     }
+
+    public AlimentacionServicio getAlimentacionServicio() {
+        return alimentacionServicio;
+    }
+
+    public void setAlimentacionServicio(AlimentacionServicio alimentacionServicio) {
+        this.alimentacionServicio = alimentacionServicio;
+    }
     
     public void nuevoAlimento() {
         this.alimentacion = new Alimentacion();
@@ -56,7 +64,7 @@ public class AlimentacionBean implements Serializable {
     
     public void modificarAlimento() {
         if (this.alimentoSeleccionado!=null) {
-            this.tituloFormulario = "Modificación de Cliente";
+            this.tituloFormulario = "Modificación de Alimentación";
             this.copiarAlimentacionSeleccionado();
             this.enModificar = true;
         }
@@ -115,10 +123,10 @@ public class AlimentacionBean implements Serializable {
     private void copiarAlimentacionSeleccionado() {
         this.alimentacion = new Alimentacion();
         this.alimentacion.setCodigo(this.alimentoSeleccionado.getCodigo());
-        this.alimentacion.setNombre(this.alimentacion.getNombre());
-        this.alimentacion.setCategoria(this.alimentacion.getCategoria());
-        this.alimentacion.setValor(this.alimentacion.getValor());
-        this.alimentacion.setDetalle(this.alimentacion.getDetalle());
+        this.alimentacion.setNombre(this.alimentoSeleccionado.getNombre());
+        this.alimentacion.setCategoria(this.alimentoSeleccionado.getCategoria());
+        this.alimentacion.setValor(this.alimentoSeleccionado.getValor());
+        this.alimentacion.setDetalle(this.alimentoSeleccionado.getDetalle());
         
     }
     
