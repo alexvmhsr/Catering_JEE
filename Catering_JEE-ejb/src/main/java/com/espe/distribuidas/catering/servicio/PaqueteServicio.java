@@ -6,6 +6,7 @@
 package com.espe.distribuidas.catering.servicio;
 
 import com.espe.distribuidas.catering.dao.PaqueteDAO;
+import com.espe.distribuidas.catering.exception.ValidacionException;
 import com.espe.distribuidas.catering.modelo.Paquete;
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,6 +24,18 @@ public class PaqueteServicio {
     
     @EJB
     private PaqueteDAO paqueteDAO= new PaqueteDAO();
+    
+    public void crearPaquete (Paquete paquete) {
+        
+        Paquete paqueteTemp = new Paquete();
+        paqueteTemp.setCodigo(paquete.getCodigo());
+        List<Paquete> paquetes = this.paqueteDAO.find(paqueteTemp);
+        if (paquetes == null || paquetes.isEmpty()) {
+            this.paqueteDAO.insert(paquete);
+        } else {
+            throw new ValidacionException("El número de paquete: " + paquete.getCodigo()+ " ya existe.");
+        }
+    }
     
     public  List<Paquete> ObtenerTodas()
     {
@@ -44,6 +57,10 @@ public class PaqueteServicio {
         this.paqueteDAO.update(paquete);
     }
     
+    public void eliminarPaquete(Integer codigo) {
+        Paquete paquete = this.paqueteDAO.findById(codigo, false);
+        this.paqueteDAO.remove(paquete);
+    }
     
     
 }

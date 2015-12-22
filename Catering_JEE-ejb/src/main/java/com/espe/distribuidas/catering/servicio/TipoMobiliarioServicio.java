@@ -6,6 +6,7 @@
 package com.espe.distribuidas.catering.servicio;
 
 import com.espe.distribuidas.catering.dao.TipoMobiliarioDAO;
+import com.espe.distribuidas.catering.exception.ValidacionException;
 import com.espe.distribuidas.catering.modelo.TipoMobiliario;
 import java.util.List;
 import javax.ejb.EJB;
@@ -22,6 +23,20 @@ public class TipoMobiliarioServicio {
     @EJB
     private TipoMobiliarioDAO tipoMobiliarioDAO;
     
+    
+    
+    public void crearTipoMobiliario(TipoMobiliario tipoMobiliario) {
+        
+        TipoMobiliario tipoMobiliarioTemp = new TipoMobiliario();
+        tipoMobiliarioTemp.setCodigo(tipoMobiliario.getCodigo());
+        List<TipoMobiliario> tipoMobiliarios = this.tipoMobiliarioDAO.find(tipoMobiliarioTemp);
+        if (tipoMobiliarios == null || tipoMobiliarios.isEmpty()) {
+            this.tipoMobiliarioDAO.insert(tipoMobiliario);
+        } else {
+            throw new ValidacionException("El tipo de evento : " + tipoMobiliario.getCodigo()+ " ya existe.");
+        }
+    }
+    
      public List<TipoMobiliario> ObtenerTodas() {
         return this.tipoMobiliarioDAO.findAll();
     }
@@ -36,6 +51,11 @@ public class TipoMobiliarioServicio {
     }
      public void ActualizarTipoMobiliario(TipoMobiliario tipMov) {
         this.tipoMobiliarioDAO.update(tipMov);
+    }
+     
+      public void eliminarTipoMobiliario(Integer codigo ) {
+        TipoMobiliario tipoMobiliario = this.tipoMobiliarioDAO.findById(codigo, false);
+        this.tipoMobiliarioDAO.remove(tipoMobiliario);
     }
     
 }
