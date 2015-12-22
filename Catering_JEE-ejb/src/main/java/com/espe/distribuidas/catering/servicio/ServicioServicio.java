@@ -26,15 +26,7 @@ public class ServicioServicio {
     private ServicioDAO servicioDAO;
     
     public void crearServicio(Servicio servicio) {
-        
-        Servicio servicioTemp = new Servicio();
-        servicioTemp.setCodigo(servicio.getCodigo());
-        List<Servicio> servicios = this.servicioDAO.find(servicioTemp);
-        if (servicios == null || servicios.isEmpty()) {
             this.servicioDAO.insert(servicio);
-        } else {
-            throw new ValidacionException("El codigo : " + servicio.getCodigo()+ " ya existe.");
-        }
     }
     
     public List<Servicio> ObtenerTodas() {

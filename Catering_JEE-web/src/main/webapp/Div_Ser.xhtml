@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="Pantillas/principalTemplate.xhtml">
+
+    <ui:define name = "principal">  
+        <h3 style="margin-top:0"><font color= "black">Tipo de Mobiliario</font></h3>
+
+
+
+        <p:dataTable id="tbl" var="servicio" value="#{servicioBean.servicios}"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginator="true" rows="10" style="margin-bottom:20px"
+                     selectionMode="single" selection="#{servicioBean.servicioSeleccionado}" rowKey="#{servicio.codigo}" emptyMessage="No existen registros." >
+        
+            <p:column filterBy="#{servicio.tipoServicio}" headerText="Tipo de Servicio" style="width: auto;" filterMatchMode="contains" >
+                <h:outputText value="#{servicio.tipoServicio}" />
+            </p:column>
+            <p:column filterBy="#{servicio.valor}" headerText="Descripción" style="width: auto;" filterMatchMode="contains" >
+                <h:outputText value="#{servicio.valor}" />
+            </p:column>
+
+        </p:dataTable>    
+        <h:panelGrid columns="5" style="width: 350px">
+            <p:commandButton value="Nuevo" actionListener="#{servicioBean.nuevoServicio()}" update="@form" rendered="#{not servicioBean.nuevo}"/>
+            <p:commandButton value="Modificar" actionListener="#{servicioBean.modificarServicio()}" update="@form" rendered="#{not servicioBean.nuevo}"/>
+            <p:commandButton value="Detalles" actionListener="#{servicioBean.detallesServicio()}" update="@form" rendered="#{not servicioBean.nuevo}"/>
+            <p:commandButton value="Eliminar" actionListener="#{servicioBean.eliminarServicio()}" update="@form" rendered="#{not servicioBean.nuevo}"/>
+        </h:panelGrid>
+
+        <p:panel header="#{servicioBean.tituloFormulario}" style="width: auto" rendered="#{servicioBean.enNueva || servicioBean.enModificar || servicioBean.enDetalles || servicioBean.nuevo}">
+            <p:panelGrid columns="3" style="width: 95%">
+                
+                <p:outputLabel for="tipo_servicio" value="Tipo Servicio:" />
+                <p:inputText id="tipo_servicio" value="#{servicioBean.servicio.tipoServicio}" style="width: 100%;" required="true" readonly="#{servicioBean.enDetalles}"/>
+                <p:message for="tipo_servicio" />
+               
+                <p:outputLabel for="valor_servicio" value="Valor C/U:" />
+                <p:inputText id="valor_servicio" value="#{servicioBean.servicio.valor}" style="width: 100%;" required="true" readonly="#{servicioBean.enDetalles}">
+<!--                <f:validateDoubleRange minimum="0.0" maximum="10000.5" />-->
+                </p:inputText>
+                <p:message for="valor_servicio" />
+                
+            </p:panelGrid>
+            <p:commandButton value="Guardar" actionListener="#{servicioBean.guardarServicio()}" rendered="#{not servicioBean.enDetalles}" update="@form"/>
+            <p:commandButton value="Cancelar" actionListener="#{servicioBean.cancelar()}" immediate="true" update="@form"/>
+        </p:panel>
+    </ui:define>
+</ui:composition>
