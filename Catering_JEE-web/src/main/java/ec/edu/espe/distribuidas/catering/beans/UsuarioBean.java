@@ -54,6 +54,7 @@ public class UsuarioBean implements Serializable {
         return usuarioServicio;
     }
 
+
     public void setUsuarioServicio(UsuarioServicio usuarioServicio) {
         this.usuarioServicio = usuarioServicio;
     }
@@ -125,12 +126,12 @@ public class UsuarioBean implements Serializable {
     public void nuevoUsuario() {
         this.usuario = new Usuario();
         this.enNueva = true;
-        this.tituloFormulario = "Creación de Cliente";
+        this.tituloFormulario = "Creación de Usuario";
     }
 
     public void modificarUsuario() {
         if (this.usuarioSeleccionado != null) {
-            this.tituloFormulario = "Modificación de Cliente";
+            this.tituloFormulario = "Modificación de Usuario";
             this.copiarUsuarioSeleccionado();
             this.enModificar = true;
         }
@@ -138,7 +139,7 @@ public class UsuarioBean implements Serializable {
 
     public void detallesUsuario() {
         if (this.usuarioSeleccionado != null) {
-            this.tituloFormulario = "Detalles de Cliente";
+            this.tituloFormulario = "Detalles de Usuario";
             this.copiarUsuarioSeleccionado();
             this.enDetalles = true;
         }
@@ -150,10 +151,10 @@ public class UsuarioBean implements Serializable {
                 this.usuarioServicio.crearUsuario(this.usuario);
                 this.enNueva = false;
                 this.usuarios = this.usuarioServicio.obtenerUsuarios();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente Creado.", "Se ha creado el " + this.usuario);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Creado.", "Se ha creado el " + this.usuario);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al crear cliente.", e.getMessage());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al crear Usuario.", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } else {
@@ -161,10 +162,10 @@ public class UsuarioBean implements Serializable {
                 this.usuarioServicio.actualizarUsuario(this.usuario);
                 this.enModificar = false;
                 this.usuarios = this.usuarioServicio.obtenerUsuarios();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente Actualizado.", "Se ha actualizado el " + this.usuario);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Actualizado.", "Se ha actualizado el " + this.usuario);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al actualizar cliente.", e.getMessage());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al actualizar Usuario.", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         }
@@ -176,10 +177,10 @@ public class UsuarioBean implements Serializable {
                 this.copiarUsuarioSeleccionado();
                 this.usuarioServicio.eliminarUsuario(this.usuario.getIdUsuario());
                 this.usuarios = this.usuarioServicio.obtenerUsuarios();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cliente Eliminado.", "Se ha eliminado el cliente " + this.usuario);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Eliminado.", "Se ha eliminado el Usuario " + this.usuario);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al eliminar cliente. ", e.getMessage());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al eliminar Usuario. ", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
 

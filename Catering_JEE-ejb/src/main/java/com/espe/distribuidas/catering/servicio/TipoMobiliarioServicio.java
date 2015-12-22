@@ -19,23 +19,26 @@ import javax.ejb.Stateless;
 @LocalBean
 @Stateless
 public class TipoMobiliarioServicio {
+
     @EJB
     private TipoMobiliarioDAO tipoMobiliarioDAO;
+
     
-     public List<TipoMobiliario> ObtenerTodas() {
+
+    public void actualizarTipoMobiliario(TipoMobiliario tipMov1) {
+        this.tipoMobiliarioDAO.update(tipMov1);
+    }
+
+    public void crearTipoMobiliario(TipoMobiliario tipMov2) {
+        this.tipoMobiliarioDAO.insert(tipMov2);
+    }
+
+    public List<TipoMobiliario> obtenerTipoMobiliario() {
         return this.tipoMobiliarioDAO.findAll();
     }
-     
-     public boolean validar(String nombre, String descripcion) {
-        TipoMobiliario tipMovTmp = new TipoMobiliario();
-        tipMovTmp.setNombre(nombre);
-        tipMovTmp.setDescripcion(descripcion);
-        if(tipoMobiliarioDAO.find(tipMovTmp, false).isEmpty()){
-            return false;
-        }else return true;
+
+    public void eliminarTipoMobiliario(Integer codigo1) {
+        TipoMobiliario tipMov3 = this.tipoMobiliarioDAO.findById(codigo1, false);
+        this.tipoMobiliarioDAO.remove(tipMov3);
     }
-     public void ActualizarTipoMobiliario(TipoMobiliario tipMov) {
-        this.tipoMobiliarioDAO.update(tipMov);
-    }
-    
 }

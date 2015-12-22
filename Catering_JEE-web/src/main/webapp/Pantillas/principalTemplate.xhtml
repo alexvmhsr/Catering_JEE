@@ -29,7 +29,7 @@
             <div>
                 <p:layout fullPage="false" class="banner" style="height: 600px">
                     <div id="content" class="left_content">
-                        <p:layoutUnit position="center" style="opacity: 0.8;" closable="true">
+                        <p:layoutUnit position="center" style="opacity: 0.9;" closable="true">
                             <h:form>
                                 <ui:insert name="principal"/>
                             </h:form>
@@ -37,7 +37,7 @@
                     </div>
                     <div id="left" style="width: 150px">
                         <p:layoutUnit position="west" resizable="false" size="20%" collapsible="true" 
-                                      style="opacity: 0.8;" header="Menu Principal">
+                                      style="opacity: 0.9;" header="Menu Principal">
                             <h:form>
                                 <p:growl autoUpdate="true"/>
                                 <p:panelMenu style="width:auto; height: auto;">
@@ -54,8 +54,8 @@
 
                                     </p:submenu>
                                     <p:separator />
-                                    <p:submenu label="Inventario" > 
-                                        <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" />                             
+                                    <p:submenu label="Divisiones" > 
+                                        <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" outcome="/Div_TM"/>                             
                                         <p:menuitem value="Mobiliario" icon="ui-icon-suitcase" /> 
                                         <p:menuitem value="Alimentación" icon="ui-icon-suitcase" />
                                         <p:menuitem value="Servicio"   ajax="true" icon="ui-icon-search" />
