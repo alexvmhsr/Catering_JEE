@@ -6,6 +6,7 @@
 package com.espe.distribuidas.catering.servicio;
 
 import com.espe.distribuidas.catering.dao.AlimentacionDAO;
+import com.espe.distribuidas.catering.exception.ValidacionException;
 import com.espe.distribuidas.catering.modelo.Alimentacion;
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,6 +25,19 @@ public class AlimentacionServicio {
     @EJB
     private AlimentacionDAO alimentacionDAO= new AlimentacionDAO();
     
+    
+    public void crearCliente(Alimentacion alimentacion) {
+        
+        Alimentacion alimentacionTemp = new Alimentacion();
+        alimentacionTemp.setCodigo(alimentacion.getCodigo());
+        List<Alimentacion> alimentos = this.alimentacionDAO.find(alimentacionTemp);
+        if (alimentos == null || alimentos.isEmpty()) {
+            this.alimentacionDAO.insert(alimentacion);
+        } else {
+            throw new ValidacionException("El codigo de alimento: " + alimentacion.getCodigo()+ " ya existe.");
+        }
+    }
+    
     public  List<Alimentacion> ObtenerTodas()
     {
         return this.alimentacionDAO.findAll();
@@ -41,6 +55,10 @@ public class AlimentacionServicio {
      
     public void ActualizarAlimentacion(Alimentacion alimentacion) {
         this.alimentacionDAO.update(alimentacion);
+    }
+    public void eliminarAlimentacion(Integer codigo) {
+        Alimentacion alimentacion = this.alimentacionDAO.findById(codigo, false);
+        this.alimentacionDAO.remove(alimentacion);
     }
     
 }

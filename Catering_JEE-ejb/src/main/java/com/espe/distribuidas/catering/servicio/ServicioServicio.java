@@ -6,6 +6,7 @@
 package com.espe.distribuidas.catering.servicio;
 
 import com.espe.distribuidas.catering.dao.ServicioDAO;
+import com.espe.distribuidas.catering.exception.ValidacionException;
 import com.espe.distribuidas.catering.modelo.Servicio;
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,6 +25,18 @@ public class ServicioServicio {
     @EJB
     private ServicioDAO servicioDAO;
     
+    public void crearServicio(Servicio servicio) {
+        
+        Servicio servicioTemp = new Servicio();
+        servicioTemp.setCodigo(servicio.getCodigo());
+        List<Servicio> servicios = this.servicioDAO.find(servicioTemp);
+        if (servicios == null || servicios.isEmpty()) {
+            this.servicioDAO.insert(servicio);
+        } else {
+            throw new ValidacionException("El codigo : " + servicio.getCodigo()+ " ya existe.");
+        }
+    }
+    
     public List<Servicio> ObtenerTodas() {
         return this.servicioDAO.findAll();
     }
@@ -39,5 +52,10 @@ public class ServicioServicio {
     
     public void ActualizarServicio(Servicio ser) {
         this.servicioDAO.update(ser);
+    }
+    
+    public void eliminarServicio(Integer codigo) {
+        Servicio servicio = this.servicioDAO.findById(codigo, false);
+        this.servicioDAO.remove(servicio);
     }
 }
