@@ -40,8 +40,8 @@ public class PaqueteServicio {
         }else return true;
     }
      
-    public void ActualizarAlimentacion(Alimentacion alimentacion) {
-        this.alimentacionDAO.update(alimentacion);
+    public void ActualizarPaquete(Paquete paquete) {
+        this.paqueteDAO.update(paquete);
     }
     
     
