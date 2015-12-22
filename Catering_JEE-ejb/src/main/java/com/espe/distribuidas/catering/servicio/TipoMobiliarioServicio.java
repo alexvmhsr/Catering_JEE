@@ -6,6 +6,7 @@
 package com.espe.distribuidas.catering.servicio;
 
 import com.espe.distribuidas.catering.dao.TipoMobiliarioDAO;
+import com.espe.distribuidas.catering.exception.ValidacionException;
 import com.espe.distribuidas.catering.modelo.TipoMobiliario;
 import java.util.List;
 import javax.ejb.EJB;

@@ -6,6 +6,7 @@
 package com.espe.distribuidas.catering.servicio;
 
 import com.espe.distribuidas.catering.dao.TipoEventoDAO;
+import com.espe.distribuidas.catering.exception.ValidacionException;
 import com.espe.distribuidas.catering.modelo.TipoEvento;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,6 +24,18 @@ public class TipoEventoServicio {
     @EJB
     private TipoEventoDAO tipoEventoDAO;
     
+    public void crearTipoEveto(TipoEvento tipoEvento) {
+        
+        TipoEvento tipoEventoTemp = new TipoEvento();
+        tipoEventoTemp.setCodigo(tipoEvento.getCodigo());
+        List<TipoEvento> tipoEventos = this.tipoEventoDAO.find(tipoEventoTemp);
+        if (tipoEventos == null || tipoEventos.isEmpty()) {
+            this.tipoEventoDAO.insert(tipoEvento);
+        } else {
+            throw new ValidacionException("El tipo de evento : " + tipoEvento.getCodigo()+ " ya existe.");
+        }
+    }
+    
     public List<TipoEvento> ObtenerTodas() {
         return this.tipoEventoDAO.findAll();
     }
@@ -38,5 +51,9 @@ public class TipoEventoServicio {
     
     public void ActualizarTipoEvento( TipoEvento tipeven) {
         this.tipoEventoDAO.update(tipeven);
+    }
+    public void eliminarTipoEvento(Integer codigo ) {
+        TipoEvento tipoEvento = this.tipoEventoDAO.findById(codigo, false);
+        this.tipoEventoDAO.remove(tipoEvento);
     }
 }
