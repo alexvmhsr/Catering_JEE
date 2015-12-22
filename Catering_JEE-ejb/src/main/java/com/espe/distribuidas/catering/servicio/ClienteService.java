@@ -17,7 +17,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Pancho
+ * @author PabloA
  */
 
 @LocalBean

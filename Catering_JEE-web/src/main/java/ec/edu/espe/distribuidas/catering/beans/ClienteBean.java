@@ -20,7 +20,7 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author macintosh
+ * @author PabloA
  */
 @ManagedBean
 @ViewScoped
@@ -120,7 +120,7 @@ public class ClienteBean implements Serializable{
         this.cliente.setApellido(this.clienteSeleccionado.getApellido());
         this.cliente.setDireccion(this.clienteSeleccionado.getDireccion());
         this.cliente.setTelefono(this.clienteSeleccionado.getTelefono());
-        this.cliente.setCorreo(this.clienteSeleccionado.getCodigo());
+        this.cliente.setCorreo(this.clienteSeleccionado.getCorreo());
         
     }
      

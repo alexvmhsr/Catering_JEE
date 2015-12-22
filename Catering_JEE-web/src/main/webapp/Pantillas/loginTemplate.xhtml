@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <f:view contentType="text/html">
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -51,7 +52,7 @@
         </h:head>
 
         <h:body styleClass="Bimage">
-            
+
             <div id="home" class="banner">
                 <div class="container">
                     <ui:insert name="content">Content</ui:insert>
@@ -75,9 +76,9 @@
                 <div class="clearfix"></div>
 
                 <div class="copyright">
-                    <p>Universidad de las Fuerzas Armadas - "ESPE"</p>
-                    <p>Pablo Villamar</p>
-                    <p>Vannesa Nasimba</p>
+                    <p:outputLabel style="font-size: small" value="Universidad de las Fuerzas Armadas - ESPE"/><br/>
+                    <p:outputLabel style="font-size: small" value="Pablo Villamar"/><br/>
+                    <p:outputLabel style="font-size: small" value="Vannesa Nasimba"/><br/>
                 </div>
             </div>
         </h:body>
