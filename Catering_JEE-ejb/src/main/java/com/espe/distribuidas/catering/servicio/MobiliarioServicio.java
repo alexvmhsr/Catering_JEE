@@ -7,7 +7,9 @@ package com.espe.distribuidas.catering.servicio;
 
 
 import com.espe.distribuidas.catering.dao.MobiliarioDAO;
+import com.espe.distribuidas.catering.dao.TipoMobiliarioDAO;
 import com.espe.distribuidas.catering.modelo.Mobiliario;
+import com.espe.distribuidas.catering.modelo.TipoMobiliario;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -22,26 +24,36 @@ import javax.ejb.Stateless;
 public class MobiliarioServicio {
     @EJB
     MobiliarioDAO mobiliarioDAO;
-
-    public void crearCliente(Mobiliario mobiliario) {
-
+    
+    @EJB
+    TipoMobiliarioDAO tipomobiliarioDAO;
+    
+    public void crearMobiliario(Mobiliario mobiliario)
+    {
         this.mobiliarioDAO.insert(mobiliario);
-
     }
-
-    public Mobiliario obtenerFacturaPorNumero(Integer numfactura) {
-        return this.mobiliarioDAO.findById(numfactura, false);
-    }
-
-    public List<Mobiliario> obtenerClientes() {
+    
+    public  List<Mobiliario> obtenerTodasMobiliario()
+    {
         return this.mobiliarioDAO.findAll();
     }
+    
+    public Mobiliario obtenerMobiliario(Integer codmobiliario) {
+        return this.mobiliarioDAO.findById(codmobiliario, false);
+    }
+    
+    public List <TipoMobiliario> ObtenerTipoMobiliario()
+    {
+        return this.tipomobiliarioDAO.findAll();
+    }
+    
+    
 
-    public void actualizarCliente(Mobiliario mobiliario) {
+    public void actualizarMobiliario(Mobiliario mobiliario) {
         this.mobiliarioDAO.update(mobiliario);
     }
 
-    public void eliminarCliente(Integer codigo) {
+    public void eliminarMobiliario(Integer codigo) {
         Mobiliario mobiliario = this.mobiliarioDAO.findById(codigo, false);
         this.mobiliarioDAO.remove(mobiliario);
     }
