@@ -8,13 +8,19 @@ package ec.edu.espe.distribuidas.catering.beans;
 import com.espe.distribuidas.catering.modelo.Usuario;
 import com.espe.distribuidas.catering.servicio.UsuarioServicio;
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.apache.commons.codec.binary.Base64;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -53,7 +59,6 @@ public class UsuarioBean implements Serializable {
     public UsuarioServicio getUsuarioServicio() {
         return usuarioServicio;
     }
-
 
     public void setUsuarioServicio(UsuarioServicio usuarioServicio) {
         this.usuarioServicio = usuarioServicio;
@@ -125,6 +130,7 @@ public class UsuarioBean implements Serializable {
 
     public void nuevoUsuario() {
         this.usuario = new Usuario();
+        this.usuario.setContrasenia(Encriptar(usuario.getContrasenia()));
         this.enNueva = true;
         this.tituloFormulario = "Creación de Usuario";
     }
@@ -143,6 +149,31 @@ public class UsuarioBean implements Serializable {
             this.copiarUsuarioSeleccionado();
             this.enDetalles = true;
         }
+    }
+
+    public static String Encriptar(String texto) {
+
+        String secretKey = "qualityinfosolutions"; //llave para encriptar datos
+        String base64EncryptedString = "";
+
+        try {
+
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digestOfPassword = md.digest(secretKey.getBytes("utf-8"));
+            byte[] keyBytes = Arrays.copyOf(digestOfPassword, 24);
+
+            SecretKey key = new SecretKeySpec(keyBytes, "DESede");
+            Cipher cipher = Cipher.getInstance("DESede");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+
+            byte[] plainTextBytes = texto.getBytes("utf-8");
+            byte[] buf = cipher.doFinal(plainTextBytes);
+            byte[] base64Bytes = Base64.encodeBase64(buf);
+            base64EncryptedString = new String(base64Bytes);
+
+        } catch (Exception ex) {
+        }
+        return base64EncryptedString;
     }
 
     public void guardarUsuario() {

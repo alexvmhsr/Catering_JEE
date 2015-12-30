@@ -33,6 +33,7 @@ public class ClienteBean implements Serializable{
     private Cliente clienteSeleccionado;
     
     private String tituloFormulario;
+    private String clientecli;
     
     private boolean nuevo;
     
@@ -181,6 +182,14 @@ public class ClienteBean implements Serializable{
 
     public boolean isEnDetalles() {
         return enDetalles;
+    }
+
+    public String getClientecli() {
+        return clientecli;
+    }
+
+    public void setClientecli(String clientecli) {
+        this.clientecli = clientecli;
     }
     
 }

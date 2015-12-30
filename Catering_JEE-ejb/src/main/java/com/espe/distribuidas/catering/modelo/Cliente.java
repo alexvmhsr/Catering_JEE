@@ -120,6 +120,10 @@ public class Cliente implements Serializable {
     public String toString() {
         return "Cliente{" + "codigo=" + codigo + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + '}';
     }
+
+    public Object getCodigo(int parseInt) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

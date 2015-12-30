@@ -23,7 +23,7 @@ import javax.ejb.Stateless;
 public class PaqueteServicio {
     
     @EJB
-    private PaqueteDAO paqueteDAO= new PaqueteDAO();
+    private PaqueteDAO paqueteDAO;
     
     public void crearPaquete (Paquete paquete) {
         

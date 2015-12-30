@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="Pantillas/principalTemplate.xhtml">
+
+    <ui:define name = "principal">  
+        <h3 style="margin-top:0"><font color= "black">Administración de Usuarios Web</font></h3>
+
+
+
+        <p:dataTable id="tbl" var="factura" value="#{facturaBean.facturas}"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                     paginator="true" rows="10" style="margin-bottom:20px"
+                     selectionMode="single" selection="#{facturaBean.facturaSeleccionado}" rowKey="#{factura.codigo}" emptyMessage="No existen registros." >
+            <p:column filterBy="#{factura.codigo}" headerText="No. Factura" style="width: auto;" filterMatchMode="contains" >
+                <h:outputText value="#{factura.codigo}" />
+            </p:column>
+            <p:column headerText="Fecha" style="width: auto;">
+                <h:outputText value="#{factura.fecha}" />
+            </p:column>
+            <p:column filterBy="#{factura.codigoCliente}" headerText="Cliente" style="width: auto;">
+                <h:outputText value="#{factura.cliente.codigo} #{factura.cliente.nombre} #{factura.cliente.apellido}" />
+            </p:column>
+
+        </p:dataTable>    
+        <h:panelGrid columns="5" style="width: 350px">
+            <p:commandButton value="Nuevo" actionListener="#{facturaBean.nuevoFactura()}" update="@form" rendered="#{not facturaBean.nuevo}"/>
+            <p:commandButton value="Modificar" actionListener="#{facturaBean.modificarFactura()}" update="@form" rendered="#{not facturaBean.nuevo}"/>
+            <p:commandButton value="Detalles" actionListener="#{facturaBean.detallesFactura()}" update="@form" rendered="#{not facturaBean.nuevo}"/>
+            <p:commandButton value="Eliminar" actionListener="#{facturaBean.eliminarFactura()}" update="@form" rendered="#{not facturaBean.nuevo}"/>
+        </h:panelGrid>
+
+        <p:panel header="#{facturaBean.tituloFormulario}" style="width: auto" rendered="#{facturaBean.enNueva || facturaBean.enModificar || facturaBean.enDetalles || facturaBean.nuevo}">
+            <p:panelGrid columns="3" style="width: 95%">
+                <p:outputLabel for="facturacod" value="No. Factura:" />
+                <p:inputText id="facturacod" value="#{facturaBean.factura.codigo}" style="width: 100%;" required="true" readonly="#{facturaBean.enDetalles}"/>
+                <p:message for="facturacod" />
+                <p:outputLabel for="clientefac" value="Fecha:" />
+                <p:calendar id="clientefac" value="#{facturaBean.factura.fecha}" style="width: 100%; " required="true" readonly="#{facturaBean.enDetalles}"/>
+                <p:message for="clientefac" />
+
+                <p:outputLabel for="clientefactura" value="Cliente :" />
+                <p:selectOneMenu id="clientefactura" value="#{facturaBean.factura.codigoCliente}"
+                                 style="width:100%" effect="fade" filter="true" required="true">
+                    <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                    <f:selectItems value="#{clienteBean.clientes}" var="theme" itemValue="#{theme.codigo}" itemLabel="#{theme.codigo} #{theme.nombre} #{theme.apellido}"/>
+      
+                </p:selectOneMenu>
+                <p:message for="clientefactura" />
+
+            </p:panelGrid>
+            <p:commandButton value="Guardar" actionListener="#{facturaBean.guardarFactura()}" rendered="#{not facturaBean.enDetalles}" update="@form"/>
+            <p:commandButton value="Cancelar" actionListener="#{facturaBean.cancelar()}" immediate="true" update="@form"/>
+        </p:panel>
+    </ui:define>
+</ui:composition>

@@ -43,10 +43,10 @@
                 <p:inputText id="password" value="#{usuarioBean.usuario.contrasenia}" style="width: 100%; " required="true" readonly="#{usuarioBean.enDetalles}"/>
                 <p:message for="password" />
                 <p:outputLabel for="estado1" value="Estado:" />
-                <p:selectOneListbox id="estado1" value="#{usuarioBean.usuario.estado}" style="width: 100%;" required="true">
+                <p:selectOneMenu id="estado1" value="#{usuarioBean.usuario.estado}" style="width: 100%;" required="true">
                     <f:selectItem itemLabel="Activo" itemValue="SI" />
                     <f:selectItem itemLabel="Pasivo" itemValue="NO" />
-                </p:selectOneListbox>
+                </p:selectOneMenu>
  
                 <p:message for="estado1" />
                 <p:outputLabel for="emailuser" value="Email:" />
