@@ -8,7 +8,7 @@
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Administración de Facturas</font></h3>
+        <h3 style="margin-top:0"><font color= "black">Administración de Paquetes</font></h3>
 
 
 
@@ -23,7 +23,7 @@
                 <h:outputText value="#{factura.fecha}" />
             </p:column>
             <p:column filterBy="#{factura.codigoCliente}" headerText="Cliente" style="width: auto;">
-                <h:outputText value="#{factura.codigoCliente} #{factura.cliente.nombre} #{factura.cliente.apellido}" />
+                <h:outputText value="#{factura.cliente.codigo} #{factura.cliente.nombre} #{factura.cliente.apellido}" />
             </p:column>
 
         </p:dataTable>    

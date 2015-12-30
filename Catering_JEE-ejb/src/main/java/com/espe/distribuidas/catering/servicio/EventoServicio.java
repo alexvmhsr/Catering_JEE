@@ -28,7 +28,7 @@ public class EventoServicio {
 
     }
 
-    public Evento obtenerFacturaPorNumero(Integer numfactura) {
+    public Evento obtenerPorNumero(Integer numfactura) {
         return this.eventoDAO.findById(numfactura, false);
     }
 

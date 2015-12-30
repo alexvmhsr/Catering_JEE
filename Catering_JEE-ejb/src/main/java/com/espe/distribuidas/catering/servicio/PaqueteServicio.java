@@ -37,7 +37,7 @@ public class PaqueteServicio {
         }
     }
     
-    public  List<Paquete> ObtenerTodas()
+    public  List<Paquete> obtenerTodas()
     {
         return this.paqueteDAO.findAll();
     }
@@ -53,7 +53,7 @@ public class PaqueteServicio {
         }else return true;
     }
      
-    public void ActualizarPaquete(Paquete paquete) {
+    public void actualizarPaquete(Paquete paquete) {
         this.paqueteDAO.update(paquete);
     }
     
