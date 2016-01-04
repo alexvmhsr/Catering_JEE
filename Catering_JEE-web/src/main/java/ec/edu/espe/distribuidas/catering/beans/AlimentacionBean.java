@@ -44,7 +44,7 @@ public class AlimentacionBean implements Serializable {
     
     @PostConstruct
     public void postConstructor() {
-        this.listaAlimentacion = this.alimentacionServicio.ObtenerTodas();
+        this.listaAlimentacion = this.alimentacionServicio.ObtenerAlimentacion();
      
     }
 
@@ -81,9 +81,9 @@ public class AlimentacionBean implements Serializable {
     public void guardarCliente() {
         if (this.enNueva) {
             try {
-                this.alimentacionServicio.crearCliente(this.alimentacion);
+                this.alimentacionServicio.crearAlimentacion(this.alimentacion);
                 this.enNueva = false;
-                this.listaAlimentacion = this.alimentacionServicio.ObtenerTodas();
+                this.listaAlimentacion = this.alimentacionServicio.ObtenerAlimentacion();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alimento Creado.", "Se ha creado el "+this.alimentacion);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -94,7 +94,7 @@ public class AlimentacionBean implements Serializable {
             try {
                 this.alimentacionServicio.ActualizarAlimentacion(this.alimentacion);
                 this.enModificar = false;
-                this.listaAlimentacion = this.alimentacionServicio.ObtenerTodas();
+                this.listaAlimentacion = this.alimentacionServicio.ObtenerAlimentacion();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alimento Actualizado .", "Se ha actualizado el "+this.alimentacion);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -109,7 +109,7 @@ public class AlimentacionBean implements Serializable {
             try {
                 this.copiarAlimentacionSeleccionado();
                 this.alimentacionServicio.eliminarAlimentacion(this.alimentacion.getCodigo());
-                this.listaAlimentacion= this.alimentacionServicio.ObtenerTodas();
+                this.listaAlimentacion= this.alimentacionServicio.ObtenerAlimentacion();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Alimento eliminado.", "Se ha eliminado el alimento " + this.alimentacion);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {

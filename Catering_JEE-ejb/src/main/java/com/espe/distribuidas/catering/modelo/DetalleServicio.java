@@ -38,6 +38,14 @@ public class DetalleServicio implements Serializable {
     
     @Column(name = "VALOR_TOTAL", nullable = false, precision = 6, scale = 2)
     private BigDecimal valorTotal;
+    
+    @JoinColumn(name = "COD_SERVICIO", referencedColumnName = "COD_SERVICIO", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Servicio servicio;
+    
+    @JoinColumn(name = "COD_PAQUETE", referencedColumnName = "COD_PAQUETE", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Paquete paquete;
 
     public DetalleServicio() {
     }
@@ -86,6 +94,23 @@ public class DetalleServicio implements Serializable {
         this.valorTotal = valorTotal;
     }
 
+    public Servicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(Servicio servicio) {
+        this.servicio = servicio;
+    }
+
+    public Paquete getPaquete() {
+        return paquete;
+    }
+
+    public void setPaquete(Paquete paquete) {
+        this.paquete = paquete;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -108,6 +133,7 @@ public class DetalleServicio implements Serializable {
         return true;
     }
 
+    
     @Override
     public String toString() {
         return "DetalleServicio{" + "detalleServicioPK=" + detalleServicioPK + ", codigoPaquete=" + codigoPaquete + ", codigoServicio=" + codigoServicio + ", cantidad=" + cantidad + ", valorTotal=" + valorTotal + '}';

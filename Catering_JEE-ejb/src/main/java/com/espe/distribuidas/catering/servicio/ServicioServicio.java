@@ -5,8 +5,13 @@
  */
 package com.espe.distribuidas.catering.servicio;
 
+import com.espe.distribuidas.catering.dao.DetalleServicioDAO;
+import com.espe.distribuidas.catering.dao.PaqueteDAO;
 import com.espe.distribuidas.catering.dao.ServicioDAO;
 import com.espe.distribuidas.catering.exception.ValidacionException;
+import com.espe.distribuidas.catering.modelo.DetalleServicio;
+import com.espe.distribuidas.catering.modelo.DetalleServicioPK;
+import com.espe.distribuidas.catering.modelo.Paquete;
 import com.espe.distribuidas.catering.modelo.Servicio;
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,6 +29,13 @@ public class ServicioServicio {
     
     @EJB
     private ServicioDAO servicioDAO;
+    
+     @EJB
+    private DetalleServicioDAO detalleServicioDAO;
+    
+    
+    @EJB
+    private PaqueteDAO paqueteDAO;
     
     public void crearServicio(Servicio servicio) {
             this.servicioDAO.insert(servicio);
@@ -49,5 +61,27 @@ public class ServicioServicio {
     public void eliminarServicio(Integer codigo) {
         Servicio servicio = this.servicioDAO.findById(codigo, false);
         this.servicioDAO.remove(servicio);
+    }
+    public void crearDetalleServicio(DetalleServicio detalleServicio) {
+        Paquete paquete = new Paquete();
+        Servicio servicio = new Servicio();
+        DetalleServicioPK detalleServicioPK = new DetalleServicioPK ();
+        detalleServicioPK.setCodigoPaquete(paquete.getCodigo());
+        detalleServicioPK.setCodigoServicio(servicio.getCodigo());
+        detalleServicio.setDetalleServicioPK(detalleServicioPK);
+        this.detalleServicioDAO.insert(detalleServicio);
+        
+    }
+    
+    public void ActualizarServicioDetalle(DetalleServicio detalleServicio) {
+        this.detalleServicioDAO.update(detalleServicio);
+    }
+    
+    public List<DetalleServicio> ObtenerDetalleServicios() {
+        return this.detalleServicioDAO.findAll();
+    }
+    
+    public List<Paquete> ObtenerPaquetes() {
+        return this.paqueteDAO.findAll();
     }
 }
