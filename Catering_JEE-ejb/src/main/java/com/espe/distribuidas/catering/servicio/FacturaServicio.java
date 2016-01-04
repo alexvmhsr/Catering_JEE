@@ -5,8 +5,10 @@
  */
 package com.espe.distribuidas.catering.servicio;
 
+import com.espe.distribuidas.catering.dao.ClienteDAO;
 import com.espe.distribuidas.catering.dao.FacturaDAO;
 import com.espe.distribuidas.catering.exception.ValidacionException;
+import com.espe.distribuidas.catering.modelo.Cliente;
 import com.espe.distribuidas.catering.modelo.Factura;
 import java.util.List;
 import javax.ejb.EJB;
@@ -23,6 +25,9 @@ public class FacturaServicio {
 
     @EJB
     FacturaDAO facturaDAO;
+    
+    @EJB
+    ClienteDAO clienteDAO;
 
     public void crearFactura(Factura factura) {
         Factura facturaTemp = new Factura();
@@ -41,6 +46,9 @@ public class FacturaServicio {
 
     public List<Factura> obtenerTodas() {
         return this.facturaDAO.findAll();
+    }
+    public List<Cliente> obtenerClientes() {
+        return this.clienteDAO.findAll();
     }
 
     public void actualizarFactura(Factura cliente) {

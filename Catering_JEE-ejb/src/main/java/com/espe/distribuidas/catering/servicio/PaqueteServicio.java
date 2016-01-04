@@ -42,7 +42,7 @@ public class PaqueteServicio {
         return this.paqueteDAO.findAll();
     }
     
-     public boolean validar(String nombre, Integer activo, BigDecimal precio, Integer Items) {
+     public boolean validar(String nombre, String activo, BigDecimal precio, Integer Items) {
         Paquete paqueteTmp = new Paquete();
         paqueteTmp.setNombre(nombre);
         paqueteTmp.setActivo(activo);

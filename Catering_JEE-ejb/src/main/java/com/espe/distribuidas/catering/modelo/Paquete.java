@@ -29,7 +29,7 @@ public class Paquete implements Serializable {
     private String nombre;
     
     @Column(name = "ACTIVO", nullable = false)
-    private Integer activo;
+    private String activo;
     
     @Column(name = "PRECIO_FINAL", nullable = false)
     private BigDecimal precio;
@@ -60,11 +60,11 @@ public class Paquete implements Serializable {
         this.nombre = nombre;
     }
 
-    public Integer getActivo() {
+    public String getActivo() {
         return activo;
     }
 
-    public void setActivo(Integer activo) {
+    public void setActivo(String activo) {
         this.activo = activo;
     }
 

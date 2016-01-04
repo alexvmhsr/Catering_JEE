@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.distribuidas.catering.beans;
 
+import com.espe.distribuidas.catering.modelo.Cliente;
 import com.espe.distribuidas.catering.modelo.Factura;
 import com.espe.distribuidas.catering.servicio.FacturaServicio;
 import java.io.Serializable;
@@ -30,33 +31,42 @@ public class FacturaBean implements Serializable{
     private List<Factura> facturas;
     private Factura factura;
     
+    private List<Cliente> clientes;
+
+    private String clienteSelecionado;
+    
     private Factura facturaSeleccionado;
     
     private String tituloFormulario;
-    private String cliente;
+    
     private boolean nuevo;
     
     private boolean enNueva;
     private boolean enModificar;
     private boolean enDetalles;
-    
+
+    public FacturaBean() {
+    }
+
+
     @EJB
     private FacturaServicio facturaServicio;
         
     @PostConstruct
     public void postConstructor() {
         this.facturas = this.facturaServicio.obtenerTodas();
+        this.clientes = this.facturaServicio.obtenerClientes();
     }
 
     public void nuevoFactura() {
         this.factura = new Factura();
         this.enNueva =true;
-        this.tituloFormulario = "Creación de Servicio";
+        this.tituloFormulario = "Creación de Factura";
     }
     
     public void modificarFactura() {
         if (this.facturaSeleccionado!=null) {
-            this.tituloFormulario = "Modificación de Servicio";
+            this.tituloFormulario = "Modificación de Factura";
             this.copiarFacturaSeleccionado();
             this.enModificar = true;
         }
@@ -64,7 +74,7 @@ public class FacturaBean implements Serializable{
                 
     public void detallesFactura() {
         if (this.facturaSeleccionado!=null) {
-            this.tituloFormulario = "Detalles de Servicio";
+            this.tituloFormulario = "Detalles de Factura";
             this.copiarFacturaSeleccionado();
             this.enDetalles = true;
         }
@@ -72,6 +82,7 @@ public class FacturaBean implements Serializable{
     public void guardarFactura() {
         if (this.enNueva){
             try {
+               
                 this.facturaServicio.crearFactura(this.factura);
                 this.enNueva = false;
                 this.facturas = this.facturaServicio.obtenerTodas();
@@ -205,13 +216,6 @@ public class FacturaBean implements Serializable{
         this.enDetalles = enDetalles;
     }
 
-    public String getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
 
     public FacturaServicio getFacturaServicio() {
         return facturaServicio;
@@ -219,6 +223,22 @@ public class FacturaBean implements Serializable{
 
     public void setFacturaServicio(FacturaServicio facturaServicio) {
         this.facturaServicio = facturaServicio;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
+
+    public String getClienteSelecionado() {
+        return clienteSelecionado;
+    }
+
+    public void setClienteSelecionado(String clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
     }
 
    

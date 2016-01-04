@@ -37,8 +37,12 @@ public class Evento implements Serializable{
     private Integer codigoPaquete;
     
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="FECHA_EVENTO", nullable= false)
-    private Date fechaEvento;
+    @Column(name="FECHA_EVENTO_INICIO", nullable= false)
+    private Date fechaEventoInicio;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="FECHA_EVENTO_FINAL", nullable= false)
+    private Date fechaEventoFinal;
     
     @Column(name="ASISTENTES", nullable= false)
     private Integer asistentes;
@@ -48,6 +52,13 @@ public class Evento implements Serializable{
     
     @Column(name="TELEFONO", nullable= false)
     private String telefono;
+    
+    @Column(name = "COD_CLIENTE", nullable = false)
+    private String codigoCliente;
+    
+    @JoinColumn(name = "COD_CLIENTE", referencedColumnName = "COD_CLIENTE", nullable = false, insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Cliente cliente;
     
     @JoinColumn(name = "COD_TIPO_EVENTO", referencedColumnName = "COD_TIPO_EVENTO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -88,13 +99,23 @@ public class Evento implements Serializable{
         this.codigoPaquete = codigoPaquete;
     }
 
-    public Date getFechaEvento() {
-        return fechaEvento;
+    public Date getFechaEventoInicio() {
+        return fechaEventoInicio;
     }
 
-    public void setFechaEvento(Date fechaEvento) {
-        this.fechaEvento = fechaEvento;
+    public void setFechaEventoInicio(Date fechaEventoInicio) {
+        this.fechaEventoInicio = fechaEventoInicio;
     }
+
+    public Date getFechaEventoFinal() {
+        return fechaEventoFinal;
+    }
+
+    public void setFechaEventoFinal(Date fechaEventoFinal) {
+        this.fechaEventoFinal = fechaEventoFinal;
+    }
+
+    
 
     public Integer getAsistentes() {
         return asistentes;
@@ -136,6 +157,22 @@ public class Evento implements Serializable{
         this.paquete = paquete;
     }
 
+    public String getCodigoCliente() {
+        return codigoCliente;
+    }
+
+    public void setCodigoCliente(String codigoCliente) {
+        this.codigoCliente = codigoCliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -160,8 +197,12 @@ public class Evento implements Serializable{
 
     @Override
     public String toString() {
-        return "Evento{" + "codigo=" + codigo + ", codigoTipoEvento=" + codigoTipoEvento + ", codigoPaquete=" + codigoPaquete + ", fechaEvento=" + fechaEvento + ", asistentes=" + asistentes + ", direccion=" + direccion + ", telefono=" + telefono + ", tipoEvento=" + tipoEvento + ", paquete=" + paquete + '}';
+        return "Evento{" + "codigo=" + codigo + ", codigoTipoEvento=" + codigoTipoEvento + ", codigoPaquete=" + codigoPaquete + ", fechaEventoInicio=" + fechaEventoInicio + ", fechaEventoFinal=" + fechaEventoFinal + ", asistentes=" + asistentes + ", direccion=" + direccion + ", telefono=" + telefono + ", codigoCliente=" + codigoCliente + ", cliente=" + cliente + ", tipoEvento=" + tipoEvento + ", paquete=" + paquete + '}';
     }
+
+    
+
+    
 
     
 }

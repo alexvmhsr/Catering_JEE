@@ -36,8 +36,7 @@
                         </p:layoutUnit>
                     </div>
                     <div id="left" style="width: 150px">
-                        <p:layoutUnit position="west" resizable="false" size="20%" collapsible="true" 
-                                      style="opacity: 0.9;" header="Menu Principal">
+                        <p:layoutUnit position="west" resizable="false" size="20%" collapsible="true" effect="drop" style="opacity: 0.9;" header="Menu Principal">
                             <h:form>
                                 <p:growl autoUpdate="true"/>
                                 <p:panelMenu style="width:auto; height: auto;">
@@ -49,33 +48,39 @@
                                     </p:submenu>
                                     <p:submenu label="Administrar">
                                         <p:menuitem value="Clientes"   ajax="true" icon="ui-icon-person" outcome="/Adm_Cli"/>                                       
-                                        <p:menuitem value="Factura"   ajax="true" icon="ui-icon-clipboard" />
                                         <p:menuitem value="Usuario Web"   ajax="true" icon="ui-icon-signal-diag" outcome="/Adm_Usu"/>
 
                                     </p:submenu>
                                     <p:separator />
-                                    <p:submenu label="Divisiones" > 
-                                        <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" outcome="/Div_TM"/>                             
-                                        <p:menuitem value="Mobiliario" icon="ui-icon-suitcase" /> 
+                                    <p:submenu label="Divisiones" >
+                                        <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" outcome="/Div_TM"/>  
+                                        <p:menuitem value="Mobiliario" icon="ui-icon-suitcase" outcome="/Div_Mob"/> 
                                         <p:menuitem value="Alimentación" icon="ui-icon-suitcase" outcome="/Div_Ali"/>
-                                        <p:menuitem value="Servicio"   ajax="true" icon="ui-icon-search" outcome="/Div_Ser"/>
+                                        <p:menuitem value="Personal"   ajax="true" icon="ui-icon-search" outcome="/Div_Ser"/>
                                     </p:submenu>
 
                                     <p:separator />
                                     <p:submenu label="Organización">
-                                        <p:menuitem value="Tipo de Evento"   ajax="true" icon="ui-icon-pin-s" />
-                                        <p:menuitem value="Evento" icon="ui-icon-calendar" />
+                                        <p:menuitem value="Tipo de Evento"   ajax="true" icon="ui-icon-pin-s" outcome="/Org_TE"/>
+                                        <p:menuitem value="Evento"   ajax="true" icon="ui-icon-pin-s" outcome="/Org_Eve"/>
+                                        <p:menuitem value="Calendario" icon="ui-icon-calendar" outcome="/Org_Cal"/>
                                     </p:submenu>
                                     <p:separator />
                                     <p:submenu label="Catering">
-                                        <p:menuitem value="Paquete"   ajax="true" icon="ui-icon-contact" />
+                                        <p:menuitem value="Paquete"   ajax="true" icon="ui-icon-contact" outcome="/Cat_Paq"/>
                                         <p:menuitem value="Factura"   ajax="true" icon="ui-icon-cart"  outcome="/Cat_Fac"/>
                                     </p:submenu>                                              
                                 </p:panelMenu>
                             </h:form>
                         </p:layoutUnit>
                     </div>
-
+                    <div id="content" class="left_content">
+                        <p:layoutUnit position="center" style="opacity: 0.9;" closable="true">
+                            <h:form>
+                                <ui:insert name="principal"/>
+                            </h:form>
+                        </p:layoutUnit>
+                    </div>
                 </p:layout>
             </div>
             <div class="footer" style="bottom: 0;">
@@ -86,11 +91,11 @@
                     <div class="footer-right">
                         <p:outputLabel style="font-size: small" value="Redes Sociales"/>
                         <ul>
-                        <li><a class="fb" href="https://www.facebook.com/Pablo.Castiel"></a></li>
-                        <li><a class="twitt" href="#"></a></li>
-                        <li><a class="google" href="#"></a></li>
-                        <li><a class="drib" href="#"></a></li>
-                    </ul>
+                            <li><a class="fb" href="https://www.facebook.com/Pablo.Castiel"></a></li>
+                            <li><a class="twitt" href="#"></a></li>
+                            <li><a class="google" href="#"></a></li>
+                            <li><a class="drib" href="#"></a></li>
+                        </ul>
                         <div class="clearfix"></div>
                     </div>
                     <div class="clearfix"></div>

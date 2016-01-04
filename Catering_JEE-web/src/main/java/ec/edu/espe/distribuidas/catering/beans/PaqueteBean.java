@@ -7,14 +7,20 @@ package ec.edu.espe.distribuidas.catering.beans;
 
 import com.espe.distribuidas.catering.modelo.Paquete;
 import com.espe.distribuidas.catering.servicio.PaqueteServicio;
+import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import static javax.sql.rowset.spi.SyncFactory.getLogger;
+import javax.sql.rowset.spi.SyncFactoryException;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -22,7 +28,7 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @ViewScoped
-public class PaqueteBean {
+public class PaqueteBean implements Serializable{
 
     /**
      * Creates a new instance of PaqueteBean
@@ -38,6 +44,8 @@ private List<Paquete> paquetes;
     private boolean enNueva;
     private boolean enModificar;
     private boolean enDetalles;
+    
+
     
     @EJB
     private PaqueteServicio paqueteServicio;
@@ -202,7 +210,7 @@ private List<Paquete> paquetes;
         this.paqueteServicio = paqueteServicio;
     }
 
-    
+   
 
    
    

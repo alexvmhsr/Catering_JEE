@@ -5,7 +5,9 @@
  */
 package com.espe.distribuidas.catering.servicio;
 
+import com.espe.distribuidas.catering.dao.ClienteDAO;
 import com.espe.distribuidas.catering.dao.EventoDAO;
+import com.espe.distribuidas.catering.modelo.Cliente;
 import com.espe.distribuidas.catering.modelo.Evento;
 import java.util.List;
 import javax.ejb.EJB;
@@ -21,8 +23,11 @@ import javax.ejb.Stateless;
 public class EventoServicio {
     @EJB
     EventoDAO eventoDAO;
+    
+    @EJB
+    ClienteDAO clienteDAO;
 
-    public void crearCliente(Evento evento) {
+    public void crearEvento(Evento evento) {
 
         this.eventoDAO.insert(evento);
 
@@ -32,15 +37,19 @@ public class EventoServicio {
         return this.eventoDAO.findById(numfactura, false);
     }
 
-    public List<Evento> obtenerClientes() {
+    public List<Evento> obtenerEventos() {
         return this.eventoDAO.findAll();
     }
 
-    public void actualizarCliente(Evento evento) {
+    
+    public List<Cliente> obtenerClientes() {
+        return this.clienteDAO.findAll();
+    }
+    public void actualizarEvento(Evento evento) {
         this.eventoDAO.update(evento);
     }
 
-    public void eliminarCliente(Integer codigo) {
+    public void eliminarEvento(Integer codigo) {
         Evento evento = this.eventoDAO.findById(codigo, false);
         this.eventoDAO.remove(evento);
     }

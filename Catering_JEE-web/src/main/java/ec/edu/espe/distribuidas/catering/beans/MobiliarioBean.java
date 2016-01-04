@@ -52,6 +52,9 @@ public class MobiliarioBean implements Serializable{
      
      @EJB
      private TipoMobiliarioServicio tipomobiliarioServicio;
+
+    public MobiliarioBean() {
+    }
          
      
      @PostConstruct
@@ -114,9 +117,7 @@ public class MobiliarioBean implements Serializable{
         if (this.enNueva)
         {
             try {
-                this.tipomobiliarioSeleccionado = new TipoMobiliario();
-                this.tipomobiliarioSeleccionado.setCodigo(this.mobiliario.getCodTipoMobiliario());
-                this.mobiliario.setTipoMobiliario(tipomobiliarioSeleccionado);
+      
                 this.mobiliarioServicio.crearMobiliario(mobiliario);
                 this.enNueva = false;
                 this.listaMobiliario= this.mobiliarioServicio.obtenerTodasMobiliario();
@@ -197,13 +198,15 @@ public class MobiliarioBean implements Serializable{
         this.listaTipoMobiliario = listaTipoMobiliario;
     }
 
-    public TipoMobiliario getTipoMobiliario() {
+    public String getTipoMobiliario() {
         return tipoMobiliario;
     }
 
-    public void setTipoMobiliario(TipoMobiliario tipoMobiliario) {
+    public void setTipoMobiliario(String tipoMobiliario) {
         this.tipoMobiliario = tipoMobiliario;
     }
+
+
 
     public TipoMobiliario getTipomobiliarioSeleccionado() {
         return tipomobiliarioSeleccionado;
@@ -247,6 +250,9 @@ public class MobiliarioBean implements Serializable{
 
     public boolean isEnDetalles() {
         return enDetalles;
+    }
+    public String irTipoMobiliario(){
+    return "Div_TM.xhtml";
     }
 }
     
