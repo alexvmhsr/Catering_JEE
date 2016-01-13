@@ -28,6 +28,16 @@ public class Servicio implements Serializable {
     @Column(name = "TIPO_SERVICIO", nullable = false, length = 20)
     private String tipoServicio;
     
+    @Column(name = "NOMBRE", nullable = false)
+    private String nombre;
+
+    @Column(name = "APELLIDO", nullable = false)
+    private String apellido;
+
+
+    @Column(name = "CORREO", nullable = false)
+    private String correo;   
+    
     @Column(name = "VALOR", nullable = false, length = 200)
     private BigDecimal valor;
 
@@ -62,6 +72,30 @@ public class Servicio implements Serializable {
         this.valor = valor;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -86,8 +120,10 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return "Servicio{" + "codigo=" + codigo + ", tipoServicio=" + tipoServicio + ", valor=" + valor + '}';
+        return "Servicio{" + "codigo=" + codigo + ", tipoServicio=" + tipoServicio + ", nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo + ", valor=" + valor + '}';
     }
+
+  
     
     
     

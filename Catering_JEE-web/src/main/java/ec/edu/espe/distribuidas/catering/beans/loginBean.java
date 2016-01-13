@@ -72,7 +72,7 @@ public class loginBean implements Serializable{
     
     
 
-    public void login(ActionEvent actionEvent) {
+   public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg;
         boolean valid = usuarioServicio.validar(nombre, clave);

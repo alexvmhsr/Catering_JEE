@@ -51,7 +51,7 @@ public class DetalleServicioBean implements Serializable {
     public void postConstructor() {
         this.listaDetalleServicio = this.servicioServicio.ObtenerDetalleServicios();
         this.listaPaquete=this.servicioServicio.ObtenerPaquetes();
-        this.listaServicio = this.servicioServicio.ObtenerServicios();
+        this.listaServicio = this.servicioServicio.ObtenerTodas();
     }
     public void nuevoDetalleServicio() {
         this.detalleServicio = new DetalleServicio();
@@ -62,7 +62,7 @@ public class DetalleServicioBean implements Serializable {
     public void modificarDetalleServicio() {
         if (this.detalleServicioSeleccionado != null) {
             this.tituloFormulario = "Modificación de Detalle";
-            this.copiarDetalleFichaMascotaSeleccionada();
+            this.copiarDetalleSeleccionada();
             this.enModificar = true;
         }
     }
@@ -70,19 +70,18 @@ public class DetalleServicioBean implements Serializable {
     public void detallesDetalleServicio() {
         if (this.detalleServicioSeleccionado != null) {
             this.tituloFormulario = "Detalles de Servicio";
-            this.copiarDetalleFichaMascotaSeleccionada();
+            this.copiarDetalleSeleccionada();
             this.enDetalles = true;
         }
     }
     
-  public void guardarDetalleFichaMascota() {
+  public void guardarDetalle() {
         if (this.enNueva) {
             try {
 //                 
                 this.paqueteSeleccionado=new Paquete();
                 this.ServicioSeleccionado= new Servicio();
-                this.paqueteSeleccionado.setCodigo(this.detalleServicio.getCodigoPaquete());
-                this.ServicioSeleccionado.setCodigo(this.detalleServicio.getCodigoServicio());
+   
                 this.detalleServicio.setPaquete(paqueteSeleccionado);
                 this.detalleServicio.setServicio(ServicioSeleccionado);
                 this.servicioServicio.crearDetalleServicio(this.detalleServicio);
@@ -98,15 +97,14 @@ public class DetalleServicioBean implements Serializable {
             try {
                    this.paqueteSeleccionado=new Paquete();
                 this.ServicioSeleccionado= new Servicio();
-                this.paqueteSeleccionado.setCodigo(this.detalleServicio.getCodigoPaquete());
-                this.ServicioSeleccionado.setCodigo(this.detalleServicio.getCodigoServicio());
+     
                 this.detalleServicio.setPaquete(paqueteSeleccionado);
                 this.detalleServicio.setServicio(ServicioSeleccionado);
                 this.servicioServicio.ActualizarServicioDetalle(this.detalleServicio);
                 this.enModificar = false;
                 this.listaDetalleServicio = this.servicioServicio.ObtenerDetalleServicios();
                 this.listaPaquete=this.servicioServicio.ObtenerPaquetes();
-                this.listaServicio = this.servicioServicio.ObtenerServicios();
+                this.listaServicio = this.servicioServicio.ObtenerTodas();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Actualizado.", "Se ha actualizado el " + this.detalleServicio);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -119,10 +117,9 @@ public class DetalleServicioBean implements Serializable {
       
 
   
-  private void copiarDetalleFichaMascotaSeleccionada() {
+  private void copiarDetalleSeleccionada() {
         this.detalleServicio = new DetalleServicio();
-        this.detalleServicio.setCodigoPaquete(this.detalleServicioSeleccionado.getCodigoPaquete());
-        this.detalleServicio.setCodigoServicio(this.detalleServicioSeleccionado.getCodigoServicio());
+
         this.detalleServicio.setCantidad(this.detalleServicioSeleccionado.getCantidad());
         this.detalleServicio.setValorTotal(this.detalleServicioSeleccionado.getValorTotal());
         

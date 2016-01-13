@@ -30,8 +30,7 @@ public class DetalleMobiliarioBean implements Serializable {
     /**
      * Creates a new instance of DetalleMobiliarioBean
      */
-    public DetalleMobiliarioBean() {
-    }
+  
 
     private List<DetalleMobiliario> detMobiliarios;
     private DetalleMobiliario detMobiliario;
@@ -60,8 +59,6 @@ public class DetalleMobiliarioBean implements Serializable {
     @PostConstruct
     public void postConstructor() {
         this.detMobiliarios = this.mobiliarioServicio.obtenerTodasDetalleMobiliario();
-        this.mobiliarios = this.mobiliarioServicio.obtenerTodasMobiliario();
-        this.paquetes = this.paqueteServicio.obtenerTodas();
     }
 
     public void nuevoDetalle() {
@@ -72,26 +69,22 @@ public class DetalleMobiliarioBean implements Serializable {
 
     public void modificarDetalle() {
         if (this.detMobiliarioSeleccionado != null) {
-            this.tituloFormulario = "Modicar Elemento";
+            this.tituloFormulario = "Modificar";
             this.copiarDetalleSeleccionado();
             this.enModificar = true;
         }
     }
 
-    public void detallesFichaMascota() {
+    public void detallesMobiliario() {
         if (this.detMobiliarioSeleccionado != null) {
-            this.tituloFormulario = "Detalles de Ficha";
+            this.tituloFormulario = "Detalles Selección";
             this.copiarDetalleSeleccionado();
             this.enDetalles = true;
         }
     }
 
     private void copiarDetalleSeleccionado() {
-        this.detMobiliario = new DetalleMobiliario();
-        this.detMobiliario.setCodigoMobiliario(this.detMobiliarioSeleccionado.getCodigoMobiliario());
-        this.detMobiliario.setCodigoPaquete(this.detMobiliarioSeleccionado.getCodigoPaquete());
-        this.detMobiliario.setCantidad(this.detMobiliarioSeleccionado.getCantidad());
-        this.detMobiliario.setValorTotal(this.detMobiliarioSeleccionado.getValorTotal());
+       
 
     }
 
@@ -101,21 +94,15 @@ public class DetalleMobiliarioBean implements Serializable {
         this.enDetalles = false;
     }
 
-    public void guardarDetalleFichaMascota() {
+    public void guardarDetalle() {
         if (this.enNueva) {
             try {
-//                 DetalleFichaMascotaPK planTrabajoPKTmp = new DetalleFichaMascotaPK();
-//                planTrabajoPKTmp.setCodigoEnfermedad(this.detalleFicha.getCodigoEnfermedad());
-//                 planTrabajoPKTmp.setCodigoFichaMascota(this.detalleFicha.getCodigoFichaMascota());
-                this.paqueteSeleccionado = new Paquete();
-                this.mobiliarioSeleccionado = new Mobiliario();
-                this.paqueteSeleccionado.setCodigo(this.detMobiliario.getCodigoPaquete());
-                this.mobiliarioSeleccionado.setCodigo(this.detMobiliario.getCodigoMobiliario());
-                this.detMobiliario.setPaquete(paqueteSeleccionado);
-                this.detMobiliario.setMobiliario(mobiliarioSeleccionado);
+//             
                 this.mobiliarioServicio.crearDetalleMobiliario(this.detMobiliario);
                 this.enNueva = false;
                 this.detMobiliarios = this.mobiliarioServicio.obtenerTodasDetalleMobiliario();
+                this.mobiliarios = this.mobiliarioServicio.obtenerTodasMobiliario();
+                this.paquetes = this.paqueteServicio.obtenerTodas();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Creado.", "Se ha creado el " + this.detMobiliario);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -124,12 +111,7 @@ public class DetalleMobiliarioBean implements Serializable {
             }
         } else {
             try {
-                this.paqueteSeleccionado = new Paquete();
-                this.mobiliarioSeleccionado = new Mobiliario();
-                this.paqueteSeleccionado.setCodigo(this.detMobiliario.getCodigoPaquete());
-                this.mobiliarioSeleccionado.setCodigo(this.detMobiliario.getCodigoMobiliario());
-                this.detMobiliario.setPaquete(paqueteSeleccionado);
-                this.detMobiliario.setMobiliario(mobiliarioSeleccionado);
+               
                 this.mobiliarioServicio.actualizarDetalleMobiliario(this.detMobiliario);
                 this.enModificar = false;
                 this.detMobiliarios = this.mobiliarioServicio.obtenerTodasDetalleMobiliario();

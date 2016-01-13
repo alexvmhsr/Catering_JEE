@@ -30,7 +30,7 @@ public class DetalleServicio implements Serializable {
     @Column(name = "COD_PAQUETE", nullable = false)
     private int codigoPaquete;
     
-    @Column(name = "COD_SERVICio", nullable = false)
+    @Column(name = "COD_SERVICIO", nullable = false)
     private int codigoServicio;
     
     @Column(name = "CANTIDAD", nullable = false)
@@ -62,21 +62,7 @@ public class DetalleServicio implements Serializable {
         this.detalleServicioPK = detalleServicioPK;
     }
 
-    public int getCodigoPaquete() {
-        return codigoPaquete;
-    }
-
-    public void setCodigoPaquete(int codigoPaquete) {
-        this.codigoPaquete = codigoPaquete;
-    }
-
-    public int getCodigoServicio() {
-        return codigoServicio;
-    }
-
-    public void setCodigoServicio(int codigoServicio) {
-        this.codigoServicio = codigoServicio;
-    }
+    
 
     public Integer getCantidad() {
         return cantidad;
@@ -133,11 +119,10 @@ public class DetalleServicio implements Serializable {
         return true;
     }
 
-    
     @Override
     public String toString() {
-        return "DetalleServicio{" + "detalleServicioPK=" + detalleServicioPK + ", codigoPaquete=" + codigoPaquete + ", codigoServicio=" + codigoServicio + ", cantidad=" + cantidad + ", valorTotal=" + valorTotal + '}';
+        return "DetalleServicio{" + "detalleServicioPK=" + detalleServicioPK + ", cantidad=" + cantidad + ", valorTotal=" + valorTotal + ", servicio=" + servicio + ", paquete=" + paquete + '}';
     }
-    
-    
+
+
 }

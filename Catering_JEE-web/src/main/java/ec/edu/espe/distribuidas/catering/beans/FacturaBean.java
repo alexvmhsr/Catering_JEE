@@ -33,8 +33,6 @@ public class FacturaBean implements Serializable{
     
     private List<Cliente> clientes;
 
-    private String clienteSelecionado;
-    
     private Factura facturaSeleccionado;
     
     private String tituloFormulario;
@@ -232,16 +230,5 @@ public class FacturaBean implements Serializable{
     public void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
-
-    public String getClienteSelecionado() {
-        return clienteSelecionado;
-    }
-
-    public void setClienteSelecionado(String clienteSelecionado) {
-        this.clienteSelecionado = clienteSelecionado;
-    }
-
-   
-   
     
 }

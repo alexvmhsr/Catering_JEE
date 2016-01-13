@@ -30,7 +30,7 @@ public class ServicioServicio {
     @EJB
     private ServicioDAO servicioDAO;
     
-     @EJB
+    @EJB
     private DetalleServicioDAO detalleServicioDAO;
     
     

@@ -5,107 +5,103 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <f:view contentType="text/html">
+  
         <h:head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <h:outputStylesheet name="./css/default.css"/>
-            <h:outputStylesheet name="./css/cssLayout.css"/>
+
+            <!-- load other css, js and resources -->	
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" rel="stylesheet"/>
+            <link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/img/favicon.ico"/>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Menu Principal</title>
             </f:facet>
-            <link href="#{appBean.baseUrl}resources/css/bootstrap.css" type="text/css" rel="stylesheet"/>
-            <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
-            <link href="#{appBean.baseUrl}resources/css/style.css" type="text/css" rel="stylesheet"/>
-            <link href="#{appBean.baseUrl}resources/css/bootstrap.css.map" type="text/css" rel="stylesheet"/>
-            <style>               
-                .Bimage{background-image:url("resources/images/22.jpg"); width: 100%}              
-            </style>  
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <h:outputStylesheet name="./css/default.css"/>
+            <h:outputStylesheet name="./css/cssLayout.css"/>
 
-            <h:graphicImage value="resources/images/24.png" width="100%" />  
         </h:head>
 
-        <h:body styleClass="Bimage">
-            <div>
-                <p:layout fullPage="false" class="banner" style="height: 600px">
-                    <div id="content" class="left_content">
-                        <p:layoutUnit position="center" style="opacity: 0.9;" closable="true">
-                            <h:form>
-                                <ui:insert name="principal"/>
-                            </h:form>
-                        </p:layoutUnit>
-                    </div>
-                    <div id="left" style="width: 150px">
-                        <p:layoutUnit position="west" resizable="false" size="20%" collapsible="true" effect="drop" style="opacity: 0.9;" header="Menu Principal">
-                            <h:form>
-                                <p:growl autoUpdate="true"/>
-                                <p:panelMenu style="width:auto; height: auto;">
-                                    <p:submenu label="Bienvenido  #{loginBean.nombre}"> 
-                                        <p:menuitem value="Home"  icon="ui-icon-home" outcome="/Principal" />
-                                        <p:menuitem value="Cerrar Sesion" actionListener="#{loginBean.cerrarSession()}" 
-                                                    oncomplete="logout(xhr, status, args)" icon="ui-icon-key"/>                                    
+        <h:body styleClass="body" id="principal_forn">
 
-                                    </p:submenu>
-                                    <p:submenu label="Administrar">
-                                        <p:menuitem value="Clientes"   ajax="true" icon="ui-icon-person" outcome="/Adm_Cli"/>                                       
-                                        <p:menuitem value="Usuario Web"   ajax="true" icon="ui-icon-signal-diag" outcome="/Adm_Usu"/>
+            <p:graphicImage id="logo" class="header-wrap" value="/resources/img/loga.png" />             
 
-                                    </p:submenu>
-                                    <p:separator />
-                                    <p:submenu label="Divisiones" >
-                                        <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" outcome="/Div_TM"/>  
-                                        <p:menuitem value="Mobiliario" icon="ui-icon-suitcase" outcome="/Div_Mob"/> 
-                                        <p:menuitem value="Alimentación" icon="ui-icon-suitcase" outcome="/Div_Ali"/>
-                                        <p:menuitem value="Personal"   ajax="true" icon="ui-icon-search" outcome="/Div_Ser"/>
-                                    </p:submenu>
+            <div style="min-height: 750px; width: 100%" >
 
-                                    <p:separator />
-                                    <p:submenu label="Organización">
-                                        <p:menuitem value="Tipo de Evento"   ajax="true" icon="ui-icon-pin-s" outcome="/Org_TE"/>
-                                        <p:menuitem value="Evento"   ajax="true" icon="ui-icon-pin-s" outcome="/Org_Eve"/>
-                                        <p:menuitem value="Calendario" icon="ui-icon-calendar" outcome="/Org_Cal"/>
-                                    </p:submenu>
-                                    <p:separator />
-                                    <p:submenu label="Catering">
-                                        <p:menuitem value="Paquete"   ajax="true" icon="ui-icon-contact" outcome="/Cat_Paq"/>
-                                        <p:menuitem value="Factura"   ajax="true" icon="ui-icon-cart"  outcome="/Cat_Fac"/>
-                                    </p:submenu>                                              
-                                </p:panelMenu>
-                            </h:form>
-                        </p:layoutUnit>
-                    </div>
-                    <div id="content" class="left_content">
-                        <p:layoutUnit position="center" style="opacity: 0.9;" closable="true">
-                            <h:form>
-                                <ui:insert name="principal"/>
-                            </h:form>
-                        </p:layoutUnit>
-                    </div>
-                </p:layout>
-            </div>
-            <div class="footer" style="bottom: 0;">
-                <div class="container" style="bottom: 0;">
-                    <div class="footer-left">
-                        <a href="#"><h:graphicImage value="resources/images/19.png" />  </a>
-                    </div>
-                    <div class="footer-right">
-                        <p:outputLabel style="font-size: small" value="Redes Sociales"/>
-                        <ul>
-                            <li><a class="fb" href="https://www.facebook.com/Pablo.Castiel"></a></li>
-                            <li><a class="twitt" href="#"></a></li>
-                            <li><a class="google" href="#"></a></li>
-                            <li><a class="drib" href="#"></a></li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="copyright">
-                        <p:outputLabel style="font-size: small" value="Universidad de las Fuerzas Armadas - ESPE"/><br/>
-                        <p:outputLabel style="font-size: small" value="Pablo Villamar"/><br/>
-                        <p:outputLabel style="font-size: small" value="Vannesa Nasimba"/><br/>
-                    </div>
+
+                <div id="left" style="min-height: 750px; width: 20%; background-color: #ffffff; opacity: 0.9" >
+                    <h:form id="menu_form">
+                        <p:growl autoUpdate="true"/>
+                        <p:panel header="Menú" >
+                            <p:panelMenu style="width:auto; height: auto;">
+                                <p:submenu label="Bienvenido  #{loginBean.nombre}"> 
+                                    <p:menuitem value="Home"  icon="ui-icon-home" outcome="/Principal" />
+                                    <p:menuitem value="Cerrar Sesion" actionListener="#{loginBean.cerrarSession()}" 
+                                                oncomplete="logout(xhr, status, args)" icon="ui-icon-key"/>                                    
+
+                                </p:submenu>
+                                <p:submenu label="Administrar">
+                                    <p:menuitem value="Clientes"   ajax="true" icon="ui-icon-person" outcome="/Adm_Cli"/>                                       
+                                    <p:menuitem value="Usuario Web"   ajax="true" icon="ui-icon-signal-diag" outcome="/Adm_Usu"/>
+
+                                </p:submenu>
+                                <p:separator />
+                                <p:submenu label="Divisiones" >
+                                    <p:menuitem value="Tipo de Mobiliario" icon="ui-icon-transferthick-e-w" outcome="/Div_TM"/>  
+                                    <p:menuitem value="Mobiliario" icon="ui-icon-suitcase" outcome="/Div_Mob"/> 
+                                    <p:menuitem value="Alimentación" icon="ui-icon-suitcase" outcome="/Div_Ali"/>
+                                    <p:menuitem value="Personal"   ajax="true" icon="ui-icon-search" outcome="/Div_Ser"/>
+                                </p:submenu>
+
+                                <p:separator />
+                                <p:submenu label="Organización">
+                                    <p:menuitem value="Tipo de Evento"   ajax="true" icon="ui-icon-pin-s" outcome="/Org_TE"/>
+                                    <p:menuitem value="Evento"   ajax="true" icon="ui-icon-pin-s" outcome="/Org_Eve"/>
+                                    <p:menuitem value="Calendario" icon="ui-icon-calendar" outcome="/Org_Cal"/>
+                                </p:submenu>
+                                <p:separator />
+                                <p:submenu label="Catering">
+                                    <p:menuitem value="Paquete"   ajax="true" icon="ui-icon-contact" outcome="/Cat_Paq"/>
+                                    <p:menuitem value="Factura"   ajax="true" icon="ui-icon-cart"  outcome="/Cat_Fac"/>
+                                </p:submenu>                                              
+                            </p:panelMenu>
+                        </p:panel>
+                        <p:confirmDialog global="true">
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                        <p:growl id="messages" showDetail="true" life="6000" autoUpdate="true" />    
+
+                    </h:form>
+
                 </div>
-            </div>           
+
+                <div class="left_content" id="right" style="opacity: 0.9; min-height: 750px; width: 79%;">
+
+                    <ui:insert name="principal"/>
+
+                </div>
+
+            </div>
+            <div class="footer" style="bottom: 0 !important;">
+
+
+                <div class="footer-right">
+                    <p>Redes Sociales</p>
+                    <ul>
+                        <li><a class="fb" href="https://www.facebook.com/Pablo.Castiel"></a></li>
+                        <li><a class="twitt" href="#"></a></li>
+                        <li><a class="google" href="#"></a></li>
+                        <li><a class="drib" href="#"></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="copyright">
+                    <p:outputLabel style="font-size: small" value="Universidad de las Fuerzas Armadas - ESPE"/>
+                </div>
+
+            </div>   
+
         </h:body>
         <script type="text/javascript">
             //<![CDATA[
@@ -118,5 +114,35 @@
             }
 //]]>
         </script>
-    </f:view>
+
+        <script type="text/javascript">
+            PrimeFaces.locales['es'] = {
+                closeText: 'Cerrar',
+                prevText: 'Anterior',
+                nextText: 'Siguiente',
+                currentText: 'Fecha actual',
+                monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+                dayNamesMin: ['D', 'L', 'M', 'X', 'J', 'V', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                month: 'Mes',
+                week: 'Semana',
+                day: 'Día',
+                allDayText: 'Todo el día'
+            };
+        </script>
+        <style type="text/css">
+            .value {
+                text-align: center;
+                width: 700px;
+                margin: 40px;
+            }
+        </style>
+ 
 </html>

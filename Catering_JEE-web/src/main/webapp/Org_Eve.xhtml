@@ -8,11 +8,123 @@
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Administración de Paquetes</font></h3>
-        
+        <h:form>
+            <h3 style="margin-top:0; text-align: center"><font color= "black">Administración de Eventos</font></h3>
 
-      
- 
-    
+            <p:dataTable id="tblevento" var="evento" value="#{eventoBean.listaEvento}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         paginator="true" rows="5" style="margin-bottom:20px; margin: 15px;"
+                         selectionMode="single" selection="#{eventoBean.eventoSeleccionado}" rowKey="#{evento.codigo}" emptyMessage="No existen registros." >
+                <p:column filterBy="#{evento.cliente.nombre}" headerText="Clienre" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{evento.cliente.nombre} #{evento.cliente.apellido}" />
+                </p:column>
+                <p:column headerText="Paquete" style="width: auto;">
+                    <h:outputText value="#{evento.paquete.nombre}" />
+                </p:column>
+                <p:column filterBy="#{evento.tipoEvento.nombre}" headerText="Tipo Evento" style="width: auto;">
+                    <h:outputText value="#{evento.tipoEvento.nombre} " />
+                </p:column>
+                <p:column headerText="Desde - Hasta" style="width: auto;">
+                    <h:outputText value="#{evento.fechaEventoInicio} - #{evento.fechaEventoFinal}"  />
+                </p:column>
+                <p:ajax event="rowSelect" update="@form"/>
+
+            </p:dataTable>   
+
+            <p:panelGrid columns="4" styleClass="panel-grid-no-border center_block" style="margin: 15px">
+                <p:commandButton value="Nuevo" 
+                                 actionListener="#{eventoBean.nuevoEvento()}" 
+                                 rendered="#{not eventoBean.nuevo}"
+                                 icon="fa fa-plus"
+                                 update="@form"
+                                 />
+                <p:commandButton value="Modificar" 
+                                 actionListener="#{eventoBean.modificarEvento()}"
+                                 rendered="#{not eventoBean.nuevo}" disabled="#{eventoBean.eventoSeleccionado eq null}" 
+                                 icon="fa fa-edit" update="@form"
+                                 />
+                <p:commandButton value="Detalles" 
+                                 actionListener="#{eventoBean.detallesEvento()}" 
+                                 rendered="#{not eventoBean.nuevo}" disabled="#{eventoBean.eventoSeleccionado eq null}" 
+                                 icon="fa fa-info" update="@form"
+                                 />
+                <p:commandButton value="Eliminar" 
+                                 actionListener="#{eventoBean.eliminarEvento()}" 
+                                 rendered="#{not eventoBean.nuevo}"
+                                 update="@form"
+                                 disabled="#{eventoBean.eventoSeleccionado eq null}" 
+                                 immediate="true" icon="fa fa-remove">
+                    <p:confirm header="Confirmación" message="¿Está seguro de eliminar el evento?" icon="ui-icon-alert" />
+                </p:commandButton>
+            </p:panelGrid>
+
+
+
+            <p:panel header="#{eventoBean.tituloFormulario}" style="width: auto; margin: 30px" rendered="#{eventoBean.enNueva || eventoBean.enModificar || eventoBean.enDetalles || eventoBean.nuevo}">
+                <p:panelGrid columns="1" styleClass="panel-grid-no-border"  >
+                    <p:panelGrid columns="4" styleClass="panel-grid-no-border" style="text-align: center">
+
+                        <p:outputLabel for="clientevento" value="Cliente :" />
+                        <p:selectOneMenu id="clientevento" value="#{eventoBean.evento.codigoCliente}"
+                                         style="width:80%" effect="fade" filter="true" required="true">
+
+                            <f:selectItems value="#{eventoBean.listaCliente}" var="cli" itemValue="#{cli.codigo}" itemLabel="#{cli.codigo} #{cli.nombre} #{cli.apellido}"/>
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="paquetevento" value="Paquete :" />
+                        <p:selectOneMenu id="paquetevento" value="#{eventoBean.evento.codigoPaquete}"
+                                         style="width:80%" effect="fade" filter="true" required="true">
+
+                            <f:selectItems value="#{eventoBean.listaPaquete}" var="paquete" itemValue="#{paquete.codigo}" itemLabel="#{paquete.nombre}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="tipoeven" value="Tipo de Evento :" />
+                        <p:selectOneMenu id="tipoeven" value="#{eventoBean.evento.codigoTipoEvento}"
+                                         style="width:100%" effect="fade" filter="true" required="true">
+
+                            <f:selectItems value="#{eventoBean.listaTipoEvento}" var="tipo" itemValue="#{tipo.codigo}" itemLabel="#{tipo.nombre}"/>
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel for="asist" value="Asistentes :" />
+                        <p:inputText id="asist" value="#{eventoBean.evento.asistentes}" style="width: 100%;" readonly="#{eventoBean.enDetalles}"/>
+
+                        <p:outputLabel for="direc" value="Dirección :" />
+                        <p:inputTextarea id="direc" value="#{eventoBean.evento.direccion}" style="width: 100%; " required="true" readonly="#{eventoBean.enDetalles}"/>
+
+
+                        <p:outputLabel for="telfevento" value="Teléfono :" />
+                        <p:inputText id="telfevento" value="#{eventoBean.evento.telefono}" style="width: 100%; " required="true" readonly="#{eventoBean.enDetalles}"/>
+
+
+                        <p:outputLabel for="fecini" value="Fecha de Inicio :" />
+                        <p:calendar id="fecini" value="#{eventoBean.evento.fechaEventoInicio}" style="width: 100%; " pattern="MM/dd/yyyy HH:mm:ss" required="true" readonly="#{eventoBean.enDetalles}"/>
+
+
+                        <p:outputLabel for="fecfinal" value="Fecha de Finalización :" />
+                        <p:calendar id="fecfinal" value="#{eventoBean.evento.fechaEventoFinal}" style="width: 100%; " pattern="MM/dd/yyyy HH:mm:ss" required="true" locale="es" readonly="#{eventoBean.enDetalles}"/>
+
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border center_block">     
+                        <p:commandButton value="Guardar" 
+                                         actionListener="#{eventoBean.guardarEvento()}" 
+                                         rendered="#{not eventoBean.enDetalles}" 
+                                         update="@form" 
+                                         />
+                        <p:commandButton value="Cancelar" 
+                                         actionListener="#{eventoBean.cancelar()}" 
+                                         update="@form" immediate="true"
+                                         />
+
+                    </p:panelGrid>
+
+
+                </p:panelGrid>
+
+            </p:panel>
+        </h:form>
+
     </ui:define>
 </ui:composition>

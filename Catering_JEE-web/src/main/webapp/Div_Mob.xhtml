@@ -8,59 +8,85 @@
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Administración de Mobiliario</font></h3>
+        <h:form>
+            <h3 style="margin-top:0"><font color= "black">Administración de Mobiliario</font></h3>
 
-                <p:dataTable id="tbl" var="mobi" value="#{mobiliarioBean.listaMobiliario}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" rows="10" style="margin-bottom:20px"
-                             selectionMode="single" selection="#{mobiliarioBean.mobiliarioSeleccionado}" rowKey="#{mobi.codigo}" emptyMessage="No existen registros." >
-                    <p:column filterBy="#{mobi.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
-                        <h:outputText value="#{mobi.nombre}" />
-                    </p:column>
-                    <p:column headerText="Existencia" style="width: auto;">
-                        <h:outputText value="#{mobi.existencia}" />
-                    </p:column>
-                    <p:column headerText="Valor" style="width: auto;">
-                        <h:outputText value="#{mobi.valor}" />
-                    </p:column>
-                    <p:column filterBy="#{mobi.tipoMobiliario.nombre}" headerText="Tipo Mobiliario" style="width: auto;">
-                        <h:outputText value="#{mobi.tipoMobiliario.nombre} " />
-                    </p:column>
+            <p:dataTable id="tblmobiliario" var="mobi" value="#{mobiliarioBean.listaMobiliario}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         paginator="true" rows="10" style="margin-bottom:20px; margin: 15px;"
+                         selectionMode="single" selection="#{mobiliarioBean.mobiliarioSeleccionado}" rowKey="#{mobi.codigo}" emptyMessage="No existen registros." >
+                <p:column filterBy="#{mobi.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{mobi.nombre}" />
+                </p:column>
+                <p:column headerText="Existencia" style="width: auto;">
+                    <h:outputText value="#{mobi.existencia}" />
+                </p:column>
+                <p:column headerText="Valor" style="width: auto;">
+                    <h:outputText value="#{mobi.valor}" />
+                </p:column>
+                <p:column filterBy="#{mobi.tipoMobiliario.nombre}" headerText="Tipo Mobiliario" style="width: auto;">
+                    <h:outputText value="#{mobi.tipoMobiliario.nombre} " />
+                </p:column>
+                <p:ajax event="rowSelect" update="@form"/>
+            </p:dataTable>  
 
-                </p:dataTable>    
-                <h:panelGrid columns="5" style="width: 20%">
-                    <p:commandButton value="Nuevo" actionListener="#{mobiliarioBean.nuevoMobiliario()}" update="@form" rendered="#{not mobiliarioBean.nuevo}"/>
-                    <p:commandButton value="Modificar" actionListener="#{mobiliarioBean.modificarMobiliario()}" update="@form" rendered="#{not mobiliarioBean.nuevo}"/>
-                    <p:commandButton value="Detalles" actionListener="#{mobiliarioBean.detallesMobiliario()}" update="@form" rendered="#{not mobiliarioBean.nuevo}"/>
-                    <p:commandButton value="Eliminar" actionListener="#{mobiliarioBean.eliminarMobiliario()}" update="@form" rendered="#{not mobiliarioBean.nuevo}"/>
-                    <p:commandButton value="Tipo de Mobiliario" action="#{mobiliarioBean.irTipoMobiliario()}" update="@form" rendered="#{not mobiliarioBean.nuevo}"/>
-                </h:panelGrid>
 
-                <p:panel header="#{mobiliarioBean.tituloFormulario}" style="width: auto" rendered="#{mobiliarioBean.enNueva || mobiliarioBean.enModificar || mobiliarioBean.enDetalles || mobiliarioBean.nuevo}">
-                    <p:panelGrid columns="3" style="width: 95%">
+            <h:panelGrid columns="4" styleClass="panel-grid-no-border center_block">
+                <p:commandButton value="Nuevo" 
+                                 actionListener="#{mobiliarioBean.nuevoMobiliario()}"
+                                 rendered="#{not mobiliarioBean.nuevo}"
+                                 icon="fa fa-plus"
+                                 update="@form"
+                                 />
+                <p:commandButton value="Modificar" 
+                                 actionListener="#{mobiliarioBean.modificarMobiliario()}"
+                                 rendered="#{not mobiliarioBean.nuevo}" disabled="#{mobiliarioBean.mobiliarioSeleccionado eq null}" 
+                                 icon="fa fa-edit" update="@form"
+                                 />
+                <p:commandButton value="Detalles" 
+                                 actionListener="#{mobiliarioBean.detallesMobiliario()}"
+                                 rendered="#{not mobiliarioBean.nuevo}" disabled="#{mobiliarioBean.mobiliarioSeleccionado eq null}" 
+                                 icon="fa fa-info" update="@form"
+                                 />
+                <p:commandButton value="Eliminar" 
+                                 actionListener="#{mobiliarioBean.eliminarMobiliario()}" 
+                                 update="@form"  disabled="#{mobiliarioBean.mobiliarioSeleccionado eq null}" 
+                                 rendered="#{not mobiliarioBean.nuevo}"  immediate="true" icon="fa fa-remove">
+                    <p:confirm header="Confirmación" message="¿Está seguro de eliminar el mobiliario?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+            </h:panelGrid>
+
+            <p:panel header="#{mobiliarioBean.tituloFormulario}" style="width: auto; margin: 30px" rendered="#{mobiliarioBean.enNueva || mobiliarioBean.enModificar || mobiliarioBean.enDetalles || mobiliarioBean.nuevo}">
+                <p:panelGrid columns="1" styleClass="panel-grid-no-border">
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border" >
+
                         <p:outputLabel for="mobinombre" value="Nombre:" />
                         <p:inputText id="mobinombre" value="#{mobiliarioBean.mobiliario.nombre}" style="width: 100%;" required="true" readonly="#{mobiliarioBean.enDetalles}"/>
-                        <p:message for="mobinombre" />
+
                         <p:outputLabel for="mobiexistencia" value="Existencia:" />
                         <p:inputText id="mobiexistencia" value="#{mobiliarioBean.mobiliario.existencia}" style="width: 100%; " required="true" readonly="#{mobiliarioBean.enDetalles}"/>
-                        <p:message for="mobiexistencia" />
+
                         <p:outputLabel for="mobivalor" value="Valor" />
                         <p:inputText id="mobivalor" value="#{mobiliarioBean.mobiliario.valor}" style="width: 100%; " required="true" readonly="#{mobiliarioBean.enDetalles}"/>
-                        <p:message for="mobivalor" />
+
                         <p:outputLabel for="tipomobi" value="Tipo Mobiliario:" />
-                        <p:selectOneMenu id="tipomobi" value="#{mobiliarioBean.mobiliario.codTipoMobiliario}"
+                        <p:selectOneMenu id="tipomobi" value="#{mobiliarioBean.mobiliario.codigoTipoMobiliario}"
                                          style="width:100%" effect="fade" filter="true" required="true">
-                            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+                            
                             <f:selectItems value="#{tipomobiliarioBean.tms}" var="theme" itemValue="#{theme.codigo}" itemLabel="#{theme.nombre}"/>
 
                         </p:selectOneMenu>
-                        <p:message for="tipomobi" />
 
                     </p:panelGrid>
-                    <p:commandButton value="Guardar" actionListener="#{mobiliarioBean.guardarMobiliario()}" rendered="#{not mobiliarioBean.enDetalles}" update="@form"/>
-                    <p:commandButton value="Cancelar" actionListener="#{mobiliarioBean.cancelar()}" immediate="true" update="@form"/>
-                </p:panel>
-                  
-    
+
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border center_block">
+                        <p:commandButton value="Guardar" actionListener="#{mobiliarioBean.guardarMobiliario()}" rendered="#{not mobiliarioBean.enDetalles}" update="@form"/>
+                        <p:commandButton value="Cancelar" actionListener="#{mobiliarioBean.cancelar()}" immediate="true" update="@form"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+
     </ui:define>
 </ui:composition>

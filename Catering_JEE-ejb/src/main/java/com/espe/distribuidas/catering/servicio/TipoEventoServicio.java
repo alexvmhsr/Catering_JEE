@@ -25,18 +25,12 @@ public class TipoEventoServicio {
     private TipoEventoDAO tipoEventoDAO;
     
     public void crearTipoEveto(TipoEvento tipoEvento) {
-        
-        TipoEvento tipoEventoTemp = new TipoEvento();
-        tipoEventoTemp.setCodigo(tipoEvento.getCodigo());
-        List<TipoEvento> tipoEventos = this.tipoEventoDAO.find(tipoEventoTemp);
-        if (tipoEventos == null || tipoEventos.isEmpty()) {
+
             this.tipoEventoDAO.insert(tipoEvento);
-        } else {
-            throw new ValidacionException("El tipo de evento : " + tipoEvento.getCodigo()+ " ya existe.");
-        }
+     
     }
     
-    public List<TipoEvento> ObtenerTodas() {
+    public List<TipoEvento> obtenerTipoEventos() {
         return this.tipoEventoDAO.findAll();
     }
     

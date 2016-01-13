@@ -14,6 +14,7 @@ import com.espe.distribuidas.catering.servicio.EventoServicio;
 import com.espe.distribuidas.catering.servicio.PaqueteServicio;
 import com.espe.distribuidas.catering.servicio.TipoEventoServicio;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -21,71 +22,68 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author Vane
  */
-
 @ManagedBean
 @ViewScoped
+
 public class EventoBean implements Serializable {
-    
-     
-     
-     private List<Evento> ListaEvento;
-     private Evento evento;
-     private Evento eventoSeleccionado;
-         
-     private List<TipoEvento> ListaTipoEvento;
-     private TipoEvento tipoEvento;
-     private TipoEvento tipoEventoSeleccionado;
-     
-     private List<Paquete> ListaPaquete;
-     private  Integer codigopaqueteSeleccionado;
-     private Paquete paqueteSeleccionado;
-     
-     private List<Cliente> ListaCliente;
-     private String codigoclienteSeleccionado;
-     private Cliente clienteSeleccionado;
-     
-     @EJB
-     private EventoServicio eventoServicio;
-     
-     @EJB
-     private TipoEventoServicio tipoEventoServicio;
-     
-     @EJB 
-     private PaqueteServicio paqueteservicio;
-     
-     @EJB
-     private ClienteService clienteServicio;
-     
-     
+
+    private List<Evento> ListaEvento;
+    private Evento evento;
+    private Evento eventoSeleccionado;
+
+    private List<TipoEvento> ListaTipoEvento;
+    private TipoEvento tipoEvento;
+    private TipoEvento tipoEventoSeleccionado;
+
+    private List<Paquete> ListaPaquete;
+    private Integer codigopaqueteSeleccionado;
+    private Paquete paqueteSeleccionado;
+
+    private List<Cliente> ListaCliente;
+    private String codigoclienteSeleccionado;
+    private Cliente clienteSeleccionado;
+
+    @EJB
+    private EventoServicio eventoServicio;
+
+    @EJB
+    private TipoEventoServicio tipoEventoServicio;
+
+    @EJB
+    private PaqueteServicio paqueteservicio;
+
+    @EJB
+    private ClienteService clienteServicio;
 
     private String tituloFormulario;
-     
-     private boolean nuevo;
-     private boolean enNueva;
-     private boolean enModificar;
-     private boolean enDetalles;
-     
-     @PostConstruct
-      public void postConstructor() {
-            this.ListaEvento = this.eventoServicio.obtenerEventos();
-            this.ListaTipoEvento= this.tipoEventoServicio.ObtenerTodas();
-            this.ListaPaquete= this.paqueteservicio.obtenerTodas();
-            this.ListaCliente= this.clienteServicio.obtenerClientes();
-            
-      }
-    
+
+    private boolean nuevo;
+    private boolean enNueva;
+    private boolean enModificar;
+    private boolean enDetalles;
+
+    @PostConstruct
+    public void init() {
+        this.ListaEvento = this.eventoServicio.obtenerEventos();
+        this.ListaTipoEvento = this.tipoEventoServicio.obtenerTipoEventos();
+        this.ListaPaquete = this.paqueteservicio.obtenerTodas();
+        this.ListaCliente = this.clienteServicio.obtenerClientes();
+
+    }
+
     public void nuevoEvento() {
-        this.evento= new Evento();
+        this.evento = new Evento();
         this.enNueva = true;
         this.tituloFormulario = "Creación de evento";
     }
 
-    
     public void modificarEvento() {
         if (this.eventoSeleccionado != null) {
             this.tituloFormulario = "Modificación de evento";
@@ -101,12 +99,13 @@ public class EventoBean implements Serializable {
             this.enDetalles = true;
         }
     }
+
     public void eliminarEvento() {
-        if (this.eventoSeleccionado!= null) {
+        if (this.eventoSeleccionado != null) {
             try {
                 this.copiarEventoSeleccionado();
                 this.eventoServicio.eliminarEvento(this.evento.getCodigo());
-                this.ListaEvento= this.eventoServicio.obtenerEventos();
+                this.ListaEvento = this.eventoServicio.obtenerEventos();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Eliminado.", "Se ha eliminado el evento " + this.evento);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -131,7 +130,7 @@ public class EventoBean implements Serializable {
                 this.evento.setCliente(clienteSeleccionado);
                 this.eventoServicio.crearEvento(this.evento);
                 this.enNueva = false;
-                this.ListaEvento= this.eventoServicio.obtenerEventos();
+                this.ListaEvento = this.eventoServicio.obtenerEventos();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Creado.", "Se ha creado la " + this.evento);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -152,7 +151,7 @@ public class EventoBean implements Serializable {
                 this.eventoServicio.actualizarEvento(this.evento);
                 this.enModificar = false;
                 this.ListaEvento = this.eventoServicio.obtenerEventos();
-                this.ListaTipoEvento = this.tipoEventoServicio.ObtenerTodas();
+                this.ListaTipoEvento = this.tipoEventoServicio.obtenerTipoEventos();
                 this.ListaPaquete = this.paqueteservicio.obtenerTodas();
                 this.ListaCliente = this.clienteServicio.obtenerClientes();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Evento Actualizada.", "Se ha actualizado la " + this.evento);
@@ -163,10 +162,9 @@ public class EventoBean implements Serializable {
             }
         }
     }
-    
 
     private void copiarEventoSeleccionado() {
-        
+
         this.evento = new Evento();
         this.evento.setCodigo(this.eventoSeleccionado.getCodigo());
         this.evento.setCodigoTipoEvento(this.eventoSeleccionado.getCodigoTipoEvento());
@@ -186,12 +184,17 @@ public class EventoBean implements Serializable {
         this.enDetalles = false;
     }
 
-    public List<Evento> getListaEvento() {
-        return ListaEvento;
+    public void onDateSelect(SelectEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Date Selected", format.format(event.getObject())));
     }
 
-    public void setListaEvento(List<Evento> ListaEvento) {
-        this.ListaEvento = ListaEvento;
+    public void click() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+
+        requestContext.update("form:display");
+        requestContext.execute("PF('dlg').show()");
     }
 
     public Evento getEvento() {
@@ -290,14 +293,6 @@ public class EventoBean implements Serializable {
         this.eventoServicio = eventoServicio;
     }
 
-    public TipoEventoServicio getTipoEventoServicio() {
-        return tipoEventoServicio;
-    }
-
-    public void setTipoEventoServicio(TipoEventoServicio tipoEventoServicio) {
-        this.tipoEventoServicio = tipoEventoServicio;
-    }
-
     public PaqueteServicio getPaqueteservicio() {
         return paqueteservicio;
     }
@@ -353,6 +348,21 @@ public class EventoBean implements Serializable {
     public void setEnDetalles(boolean enDetalles) {
         this.enDetalles = enDetalles;
     }
-    
-       
+
+    public List<Evento> getListaEvento() {
+        return ListaEvento;
+    }
+
+    public void setListaEvento(List<Evento> ListaEvento) {
+        this.ListaEvento = ListaEvento;
+    }
+
+    public TipoEventoServicio getTipoEventoServicio() {
+        return tipoEventoServicio;
+    }
+
+    public void setTipoEventoServicio(TipoEventoServicio tipoEventoServicio) {
+        this.tipoEventoServicio = tipoEventoServicio;
+    }
+
 }

@@ -74,13 +74,11 @@ public class MobiliarioServicio {
     }
 
     public void crearDetalleMobiliario(DetalleMobiliario detalleMobiliario) {
-        Paquete paquete = new Paquete();
-        Mobiliario mobiliario = new Mobiliario();
         DetalleMobiliarioPK detMobiliarioPK = new DetalleMobiliarioPK();
-        detMobiliarioPK.setCodigoPaquete(paquete.getCodigo());
-        detMobiliarioPK.setCodigoMobiliario(mobiliario.getCodigo());
+        detMobiliarioPK.setCodigoPaquete(detalleMobiliario.getDetalleMobiliarioPK().getCodigoPaquete());
+        detMobiliarioPK.setCodigoMobiliario(detalleMobiliario.getDetalleMobiliarioPK().getCodigoMobiliario());
         detalleMobiliario.setDetalleMobiliarioPK(detMobiliarioPK);
-        detalleMobiliario.setValorTotal(calculateCost(detalleMobiliario.getCantidad(), mobiliario.getValor()));
+        
         this.detallemobiliarioDAO.insert(detalleMobiliario);
     }
 

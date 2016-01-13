@@ -5,58 +5,100 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Administración de Usuarios Web</font></h3>
+
+        <h:form id="vistaUsuario">
+            <h3 style="margin-top:0; text-align: center;"><font color= "black">Administración de Usuarios Web</font></h3>
 
 
 
-        <p:dataTable id="tbl" var="usuario" value="#{usuarioBean.usuarios}"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     paginator="true" rows="10" style="margin-bottom:20px"
-                     selectionMode="single" selection="#{usuarioBean.usuarioSeleccionado}" rowKey="#{usuario.idUsuario}" emptyMessage="No existen registros." >
-            <p:column filterBy="#{usuario.nombre}" headerText="Usuario" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{usuario.nombre}" />
-            </p:column>
-            <p:column headerText="Password" style="width: auto;">
-                <h:outputText value="#{usuario.contrasenia}" />
-            </p:column>
-            <p:column headerText="Estado" style="width: auto;">
-                <h:outputText value="#{usuario.estado}" />
-            </p:column>
+            <p:dataTable id="tbl" var="usuario" value="#{usuarioBean.usuarios}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         paginator="true" rows="10" style="margin-bottom:20px; margin: 15px"
+                         selectionMode="single" selection="#{usuarioBean.usuarioSeleccionado}" rowKey="#{usuario.idUsuario}" emptyMessage="No existen registros." >
+                <p:column filterBy="#{usuario.nombre}" headerText="Usuario" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{usuario.nombre}" />
+                </p:column>
+                <p:column headerText="Password" style="width: auto;">
+                    <h:outputText value="#{usuario.contrasenia}" />
+                </p:column>
+                <p:column headerText="Estado" style="width: auto;">
+                    <h:outputText value="#{usuario.estado}" />
+                </p:column>
+                <p:ajax event="rowSelect" update="@form"/>
 
-        </p:dataTable>    
-        <h:panelGrid columns="5" style="width: 350px">
-            <p:commandButton value="Nuevo" actionListener="#{usuarioBean.nuevoUsuario()}" update="@form" rendered="#{not usuarioBean.nuevo}"/>
-            <p:commandButton value="Modificar" actionListener="#{usuarioBean.modificarUsuario()}" update="@form" rendered="#{not usuarioBean.nuevo}"/>
-            <p:commandButton value="Detalles" actionListener="#{usuarioBean.detallesUsuario()}" update="@form" rendered="#{not usuarioBean.nuevo}"/>
-            <p:commandButton value="Eliminar" actionListener="#{usuarioBean.eliminarUsuario()}" update="@form" rendered="#{not usuarioBean.nuevo}"/>
-        </h:panelGrid>
-
-        <p:panel header="#{usuarioBean.tituloFormulario}" style="width: auto" rendered="#{usuarioBean.enNueva || usuarioBean.enModificar || usuarioBean.enDetalles || usuarioBean.nuevo}">
-            <p:panelGrid columns="3" style="width: 95%">
-                <p:outputLabel for="user1" value="Usuario:" />
-                <p:inputText id="user1" value="#{usuarioBean.usuario.nombre}" style="width: 100%;" required="true" readonly="#{usuarioBean.enDetalles}"/>
-                <p:message for="user1" />
-                <p:outputLabel for="password" value="Contraseña:" />
-                <p:inputText id="password" value="#{usuarioBean.usuario.contrasenia}" style="width: 100%; " required="true" readonly="#{usuarioBean.enDetalles}"/>
-                <p:message for="password" />
-                <p:outputLabel for="estado1" value="Estado:" />
-                <p:selectOneMenu id="estado1" value="#{usuarioBean.usuario.estado}" style="width: 100%;" required="true">
-                    <f:selectItem itemLabel="Activo" itemValue="SI" />
-                    <f:selectItem itemLabel="Pasivo" itemValue="NO" />
-                </p:selectOneMenu>
- 
-                <p:message for="estado1" />
-                <p:outputLabel for="emailuser" value="Email:" />
-                <p:inputText id="emailuser" value="#{usuarioBean.usuario.correo}" style="width: 100%;"  required="true" readonly="#{usuarioBean.enDetalles}">
-                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                </p:inputText>
-                <p:message for="emailuser" />
+            </p:dataTable>    
+            <p:panelGrid columns="5" styleClass="panel-grid-no-border center_block">
+                <p:commandButton value="Nuevo" actionListener="#{usuarioBean.nuevoUsuario()}" 
+                                 rendered="#{not usuarioBean.nuevo}"
+                                 icon="fa fa-plus"
+                                 update="dialog_usuario"
+                                 oncomplete="PF('usuario_dialog_var').show()"/>
+                <p:commandButton value="Modificar" actionListener="#{usuarioBean.modificarUsuario()}" 
+                                 rendered="#{not usuarioBean.nuevo}"
+                                 icon="fa fa-edit" disabled="#{usuarioBean.usuarioSeleccionado eq null}" 
+                                 update="dialog_usuario"
+                                 oncomplete="PF('usuario_dialog_var').show()"/>
+                <p:commandButton value="Detalles" actionListener="#{usuarioBean.detallesUsuario()}" 
+                                 rendered="#{not usuarioBean.nuevo}"
+                                 icon="fa fa-info" disabled="#{usuarioBean.usuarioSeleccionado eq null}" 
+                                 update="dialog_usuario"
+                                 oncomplete="PF('usuario_dialog_var').show()"/>
+                <p:commandButton value="Eliminar" actionListener="#{usuarioBean.eliminarUsuario()}" 
+                                 rendered="#{not usuarioBean.nuevo}"
+                                 disabled="#{usuarioBean.usuarioSeleccionado eq null}" 
+                                 update="@form" immediate="true" icon="fa fa-remove">
+                                 <p:confirm header="Confirmación" message="¿Está seguro de eliminar el cliente?" icon="ui-icon-alert" />
+                </p:commandButton>
             </p:panelGrid>
-            <p:commandButton value="Guardar" actionListener="#{usuarioBean.guardarUsuario()}" rendered="#{not usuarioBean.enDetalles}" update="@form"/>
-            <p:commandButton value="Cancelar" actionListener="#{usuarioBean.cancelar()}" immediate="true" update="@form"/>
-        </p:panel>
+
+        </h:form>
+
+        <p:dialog id="dialog_usuario" 
+                  widgetVar="usuario_dialog_var" 
+
+                  draggable="true"
+                  resizable="false" 
+                  header="#{usuarioBean.tituloFormulario}"
+                  >
+            <h:form id="popup_usuario">
+
+                <p:panelGrid columns="1" styleClass="panel-grid-no-border">
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border" >
+                        <p:outputLabel for="user1" value="Usuario:" />
+                        <p:inputText id="user1" value="#{usuarioBean.usuario.nombre}" style="width: 100%;" required="true" readonly="#{usuarioBean.enDetalles}"/>
+
+                        <p:outputLabel for="password" value="Contraseña:" />
+                        <p:inputText id="password" value="#{usuarioBean.usuario.contrasenia}" style="width: 100%; " required="true" readonly="#{usuarioBean.enDetalles}"/>
+
+                        <p:outputLabel for="estado1" value="Estado:" />
+                        <p:selectOneMenu id="estado1" value="#{usuarioBean.usuario.estado}" style="width: 100%;" required="true">
+                            <f:selectItem itemLabel="Activo" itemValue="SI" />
+                            <f:selectItem itemLabel="Pasivo" itemValue="NO" />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel for="emailuser" value="Email:" />
+                        <p:inputText id="emailuser" value="#{usuarioBean.usuario.correo}" style="width: 100%;"  required="true" readonly="#{usuarioBean.enDetalles}">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border center_block">
+                        <p:commandButton value="Guardar" actionListener="#{usuarioBean.guardarUsuario()}" 
+                                         rendered="#{not usuarioBean.enDetalles}" 
+                                         update=":vistaUsuario"
+                                         oncomplete="PF('usuario_dialog_var').hide()"/>
+                        <p:commandButton value="Cancelar" actionListener="#{usuarioBean.cancelar()}" 
+                                         immediate="true" oncomplete="PF('usuario_dialog_var').hide()"
+                                         update="@form"/>
+                    </p:panelGrid>
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>

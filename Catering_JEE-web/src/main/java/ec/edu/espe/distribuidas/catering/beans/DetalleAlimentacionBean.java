@@ -51,7 +51,7 @@ public class DetalleAlimentacionBean implements Serializable {
     public void postConstructor() {
         this.listaDetalleAlimentacion = this.alimentacionServicio.ObtenerDetalleAlimentacion();
         this.listaPaquete=this.alimentacionServicio.ObtenerPaquetes();
-        this.listaAlimentacion = this.alimentacionServicio.ObtenerAlimentacion();
+        this.listaAlimentacion = this.alimentacionServicio.ObtenerTodas();
     }
     public void nuevoDetalleServicio() {
         this.detalleAlimentacion = new DetalleAlimentacion();
@@ -106,7 +106,7 @@ public class DetalleAlimentacionBean implements Serializable {
                 this.enModificar = false;
                 this.listaDetalleAlimentacion = this.alimentacionServicio.ObtenerDetalleAlimentacion();
                 this.listaPaquete=this.alimentacionServicio.ObtenerPaquetes();
-                this.listaAlimentacion = this.alimentacionServicio.ObtenerAlimentacion();
+                this.listaAlimentacion = this.alimentacionServicio.ObtenerTodas();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Actualizado.", "Se ha actualizado el " + this.detalleAlimentacion);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {

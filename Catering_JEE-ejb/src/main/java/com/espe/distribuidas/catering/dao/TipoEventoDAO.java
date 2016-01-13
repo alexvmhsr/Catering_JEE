@@ -7,12 +7,18 @@ package com.espe.distribuidas.catering.dao;
 
 import com.espe.distribuidas.catering.common.dao.DefaultGenericDAOImple;
 import com.espe.distribuidas.catering.modelo.TipoEvento;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 
 
 /**
  *
  * @author Vane
  */
+@LocalBean
+@Stateless
+
+
 public class TipoEventoDAO extends DefaultGenericDAOImple<TipoEvento, Integer>{
     
     public TipoEventoDAO()

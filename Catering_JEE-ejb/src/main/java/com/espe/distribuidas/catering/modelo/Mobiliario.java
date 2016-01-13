@@ -7,7 +7,6 @@ package com.espe.distribuidas.catering.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ public class Mobiliario implements Serializable{
     private Integer codigo;
     
     @Column(name = "COD_TIPO_MOBILIARIO", nullable = false)
-    private Integer codTipoMobiliario;
+    private Integer codigoTipoMobiliario;
     
     @Column(name = "NOMBRE", nullable = false)
     private String nombre;  
@@ -41,7 +40,7 @@ public class Mobiliario implements Serializable{
     private BigDecimal valor; 
     
     @JoinColumn(name = "COD_TIPO_MOBILIARIO", referencedColumnName = "COD_TIPO_MOBILIARIO", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne
     private TipoMobiliario tipoMobiliario;   
 
     public Mobiliario() {
@@ -59,13 +58,15 @@ public class Mobiliario implements Serializable{
         this.codigo = codigo;
     }
 
-    public Integer getCodTipoMobiliario() {
-        return codTipoMobiliario;
+    public Integer getCodigoTipoMobiliario() {
+        return codigoTipoMobiliario;
     }
 
-    public void setCodTipoMobiliario(Integer codTipoMobiliario) {
-        this.codTipoMobiliario = codTipoMobiliario;
+    public void setCodigoTipoMobiliario(Integer codigoTipoMobiliario) {
+        this.codigoTipoMobiliario = codigoTipoMobiliario;
     }
+
+
 
     public String getNombre() {
         return nombre;
@@ -123,7 +124,7 @@ public class Mobiliario implements Serializable{
 
     @Override
     public String toString() {
-        return "Mobiliario{" + "codigo=" + codigo + ", codTipoMobiliario=" + codTipoMobiliario + ", nombre=" + nombre + ", existencia=" + existencia + ", valor=" + valor + ", tipoMobiliario=" + tipoMobiliario + '}';
+        return "Mobiliario{" + "codigo=" + codigo + ", codTipoMobiliario=" + codigoTipoMobiliario + ", nombre=" + nombre + ", existencia=" + existencia + ", valor=" + valor + ", tipoMobiliario=" + tipoMobiliario + '}';
     }
         
 }

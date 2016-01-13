@@ -18,31 +18,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 /**
  *
  * @author Vane
  */
 
 @Entity
-@Table(name="G4_DETALLE_MOBILIARIO")
+@Table(name = "G4_DETALLE_MOBILIARIO")
 
-public class DetalleMobiliario implements Serializable{
-    
+public class DetalleMobiliario implements Serializable {
+
     @EmbeddedId
-    protected DetalleMobiliarioPK  detalleMobiliarioPK;
-    
+    protected DetalleMobiliarioPK detalleMobiliarioPK;
+
     @Column(name = "COD_PAQUETE", nullable = false)
     private int codigoPaquete;
-    
+
     @Column(name = "COD_MOBILIARIO", nullable = false)
     private int codigoMobiliario;
-    
+
     @Column(name = "CANTIDAD", nullable = false)
     private Integer cantidad;
-    
+
     @Column(name = "VALOR_TOTAL", nullable = false, precision = 6, scale = 2)
     private BigDecimal valorTotal;
-    
+
     @JoinColumn(name = "COD_MOBILIARIO", referencedColumnName = "COD_MOBILIARIO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Mobiliario mobiliario;
@@ -64,22 +65,6 @@ public class DetalleMobiliario implements Serializable{
 
     public void setDetalleMobiliarioPK(DetalleMobiliarioPK detalleMobiliarioPK) {
         this.detalleMobiliarioPK = detalleMobiliarioPK;
-    }
-
-    public int getCodigoPaquete() {
-        return codigoPaquete;
-    }
-
-    public void setCodigoPaquete(int codigoPaquete) {
-        this.codigoPaquete = codigoPaquete;
-    }
-
-    public int getCodigoMobiliario() {
-        return codigoMobiliario;
-    }
-
-    public void setCodigoMobiliario(int codigoMobiliario) {
-        this.codigoMobiliario = codigoMobiliario;
     }
 
     public Integer getCantidad() {
@@ -114,6 +99,24 @@ public class DetalleMobiliario implements Serializable{
         this.paquete = paquete;
     }
 
+    public int getCodigoPaquete() {
+        return codigoPaquete;
+    }
+
+    public void setCodigoPaquete(int codigoPaquete) {
+        this.codigoPaquete = codigoPaquete;
+    }
+
+    public int getCodigoMobiliario() {
+        return codigoMobiliario;
+    }
+
+    public void setCodigoMobiliario(int codigoMobiliario) {
+        this.codigoMobiliario = codigoMobiliario;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -138,10 +141,8 @@ public class DetalleMobiliario implements Serializable{
 
     @Override
     public String toString() {
-        return "DetalleMobiliario{" + "detalleMobiliarioPK=" + detalleMobiliarioPK + ", codigoPaquete=" + codigoPaquete + ", codigoMobiliario=" + codigoMobiliario + '}';
+        return "DetalleMobiliario{" + "detalleMobiliarioPK=" + detalleMobiliarioPK + ", codigoPaquete=" + codigoPaquete + ", codigoMobiliario=" + codigoMobiliario + ", cantidad=" + cantidad + ", valorTotal=" + valorTotal + ", mobiliario=" + mobiliario + ", paquete=" + paquete + '}';
     }
-    
-    
 
-
+    
 }

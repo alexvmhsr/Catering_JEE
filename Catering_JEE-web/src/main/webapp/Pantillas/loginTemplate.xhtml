@@ -7,68 +7,20 @@
       xmlns:p="http://primefaces.org/ui">
     <f:view contentType="text/html">
         <h:head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-            <h:outputStylesheet name="./css/default.css"/>
-            <h:outputStylesheet name="./css/cssLayout.css"/>
-            <link href="#{appBean.baseUrl}resources/css/bootstrap.css" type="text/css" rel="stylesheet"/>
-            <link href="#{appBean.baseUrl}resources/css/login.css" type="text/css" rel="stylesheet"/>
-            <link href="#{appBean.baseUrl}resources/css/style.css" type="text/css" rel="stylesheet"/>
-            <link href="#{appBean.baseUrl}resources/css/bootstrap.css.map" type="text/css" rel="stylesheet"/>
-            <title>Gestión Catering</title>
-            <!-- start-smoth-scrolling -->
-            <script type="text/javascript" src="js/move-top.js"></script>
-            <script type="text/javascript" src="js/easing.js"></script>
-            <script type="text/javascript">
-                jQuery(document).ready(function ($) {
-                    $(".scroll").click(function (event) {
-                        event.preventDefault();
-                        $('html,h:body').animate({scrollTop: $(this.hash).offset().top}, 1000);
-                    });
-                });
-            </script>
-            <style>               
-                .Bimage{background-image:url("resources/images/22.jpg"); }        
-            </style>   
-
-            <a href="#"><h:graphicImage value="resources/images/24.png" width="100%"/>  </a>
-
-            <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-            <h:outputScript library="js" name="move-top.js" />
-            <h:outputScript library="js" name="easing.js" />
-            <h:outputScript library="js" name="jquery.min.js" />
-            <script type="text/javascript" src="js/jquery.min.js"></script>
-            <!-- js -->
-            <!-- start-smoth-scrolling -->
-            <script type="text/javascript" src="js/move-top.js"></script>
-            <script type="text/javascript" src="js/easing.js"></script>
-            <script type="text/javascript">
-                jQuery(document).ready(function ($) {
-                    $(".scroll").click(function (event) {
-                        event.preventDefault();
-                        $('html,h:body').animate({scrollTop: $(this.hash).offset().top}, 1000);
-                    });
-                });
-            </script>
+            <!-- load other css, js and resources -->	
+            <link href="#{facesContext.externalContext.requestContextPath}/resources/css/style.css" rel="stylesheet"/>
+            <link rel="shortcut icon" type="image/x-icon" href="#{facesContext.externalContext.requestContextPath}/resources/img/favicon.ico"/>
         </h:head>
 
-        <h:body styleClass="Bimage">
+        <h:body styleClass="body" id="main_forn">
 
-            <div id="home" class="banner">
-                <div class="container">
-                    <ui:insert name="content">Content</ui:insert>
-                </div>
-            </div>
-            <div class="footer" style="bottom: 0;">
+            <ui:insert name="content">Content</ui:insert>     
 
-                <div class="footer-left" style="margin-left: 200px" align="center">
-                    <a href="#"><h:graphicImage value="resources/images/19.png" />  </a>
-                    
-                <div class="copyright" style="text-align: center" align="center">
-                    <p:outputLabel style="font-size: small" value="Universidad de las Fuerzas Armadas - ESPE"/><br/>
-                    <p:outputLabel style="font-size: small" value="Pablo Villamar"/><br/>
-                    <p:outputLabel style="font-size: small" value="Vannesa Nasimba"/><br/>
-                </div>
-                </div>
+            <p:spacer height="100px;"/>
+            
+            <div class="footer" style="bottom: 0 !important;">
+
+          
                 <div class="footer-right">
                     <p:outputLabel style="font-size: small" value="Redes Sociales"/>
                     <ul>
@@ -77,23 +29,16 @@
                         <li><a class="google" href="#"></a></li>
                         <li><a class="drib" href="#"></a></li>
                     </ul>
-                  
+                    <div class="clearfix"></div>
                 </div>
-           
+                <div class="clearfix"></div>
+                <div class="copyright">
+                    <p:outputLabel style="font-size: small" value="Universidad de las Fuerzas Armadas - ESPE"/>
+                </div>
 
-            </div>
+            </div>   
         </h:body>
 
-        <script type="text/javascript">
-            //<![CDATA[
-            function manejarLogin(xhr, status, args) {
-                if (!args.validationFailed && args.estaLogeado) {
-                    setTimeout(function () {
-                        window.location = args.view;
-                    }, 500);
-                }
-            }
-            //]]>
-        </script>
+
     </f:view>
 </html>

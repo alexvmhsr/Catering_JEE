@@ -116,6 +116,9 @@ public class ServicioBean implements Serializable {
         this.servicio.setCodigo(this.servicioSeleccionado.getCodigo());
         this.servicio.setTipoServicio(this.servicioSeleccionado.getTipoServicio());
         this.servicio.setValor(this.servicioSeleccionado.getValor());
+        this.servicio.setNombre(this.servicioSeleccionado.getNombre());
+        this.servicio.setApellido(this.servicioSeleccionado.getApellido());
+        this.servicio.setCorreo(this.servicioSeleccionado.getCorreo());
         
     }
      

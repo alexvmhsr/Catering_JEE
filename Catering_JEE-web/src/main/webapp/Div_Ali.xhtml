@@ -8,57 +8,95 @@
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Gestión de Alimentación</font></h3>
+
+        <h:form>
+
+            <h3 style="margin-top:0; text-align: center"><font color= "black">Gestión de Alimentación</font></h3>
 
 
 
-        <p:dataTable id="tbl" var="alimentacion" value="#{alimentacionBean.listaAlimentacion}"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     paginator="true" rows="10" style="margin-bottom:20px"
-                     selectionMode="single" selection="#{alimentacionBean.alimentoSeleccionado}" rowKey="#{alimentacion.codigo}" emptyMessage="No existen registros." >
-        
-            <p:column filterBy="#{alimentacion.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{alimentacion.nombre}" />
-            </p:column>
-            <p:column filterBy="#{alimentacion.categoria}" headerText="Categoría" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{alimentacion.categoria}" />
-            </p:column>
-            <p:column headerText="Valor" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{alimentacion.valor}" />
-            </p:column>
+            <p:dataTable id="tbl" var="alimentacion" value="#{alimentacionBean.listaAlimentacion}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         paginator="true" rows="10" style="margin-bottom:20px; margin: 15px;"
+                         selectionMode="single" selection="#{alimentacionBean.alimentoSeleccionado}" rowKey="#{alimentacion.codigo}" emptyMessage="No existen registros." >
 
-        </p:dataTable>    
-        <h:panelGrid columns="5" style="width: 350px">
-            <p:commandButton value="Nuevo" actionListener="#{alimentacionBean.nuevoAlimento()}" update="@form" rendered="#{not alimentacionBean.nuevo}"/>
-            <p:commandButton value="Modificar" actionListener="#{alimentacionBean.modificarAlimento()}" update="@form" rendered="#{not alimentacionBean.nuevo}"/>
-            <p:commandButton value="Detalles" actionListener="#{alimentacionBean.detallesAlimento()}" update="@form" rendered="#{not alimentacionBean.nuevo}"/>
-            <p:commandButton value="Eliminar" actionListener="#{alimentacionBean.eliminarAlimento()}" update="@form" rendered="#{not alimentacionBean.nuevo}"/>
-        </h:panelGrid>
+                <p:column filterBy="#{alimentacion.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{alimentacion.nombre}" />
+                </p:column>
+                <p:column filterBy="#{alimentacion.categoria}" headerText="Categoría" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{alimentacion.categoria}" />
+                </p:column>
+                <p:column headerText="Valor" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{alimentacion.valor}" />
+                </p:column>
+                <p:ajax event="rowSelect" update="@form"/>
+            </p:dataTable>
 
-        <p:panel header="#{alimentacionBean.tituloFormulario}" style="width: auto" rendered="#{alimentacionBean.enNueva || alimentacionBean.enModificar || alimentacionBean.enDetalles || alimentacionBean.nuevo}">
-            <p:panelGrid columns="3" style="width: 95%">
-                
-                <p:outputLabel for="nombre_ali" value="Nombre:" />
-                <p:inputText id="nombre_ali" value="#{alimentacionBean.alimentacion.nombre}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}"/>
-                <p:message for="nombre_ali" />
-                
-                <p:outputLabel for="categoria_ali" value="Categoría:" />
-                <p:inputText id="categoria_ali" value="#{alimentacionBean.alimentacion.categoria}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}"/>
-                <p:message for="categoria_ali" />
-                
-                <p:outputLabel for="valor_ali" value="Valor C/U:" />
-                <p:inputText id="valor_ali" value="#{alimentacionBean.alimentacion.valor}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}">
-                <f:validateDoubleRange minimum="0.0" maximum="10000.5" />
-                </p:inputText>
-                <p:message for="valor_ali" />
-                
-                <p:outputLabel for="detalle_ali" value="Detalle:" />
-                <p:inputTextarea id="detalle_ali" value="#{alimentacionBean.alimentacion.detalle}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}"/>
-                <p:message for="detalle_ali" />
-                
+            <p:panelGrid columns="4" styleClass="panel-grid-no-border center_block">
+                <p:commandButton value="Nuevo" 
+                                 actionListener="#{alimentacionBean.nuevoAlimento()}" 
+                                 rendered="#{not alimentacionBean.nuevo}"
+                                 icon="fa fa-plus"
+                                 update="@form"/>
+                <p:commandButton value="Modificar" 
+                                 actionListener="#{alimentacionBean.modificarAlimento()}" 
+                                 rendered="#{not alimentacionBean.nuevo}"
+                                 disabled="#{alimentacionBean.alimentoSeleccionado eq null}" 
+                                 icon="fa fa-edit" update="@form"
+                                 />
+                <p:commandButton value="Detalles" 
+                                 actionListener="#{alimentacionBean.detallesAlimento()}"
+                                 rendered="#{not alimentacionBean.nuevo}"
+                                 icon = "fa fa-info" disabled="#{alimentacionBean.alimentoSeleccionado eq null}" 
+                                 update="@form"
+                                 />
+                <p:commandButton value="Eliminar" actionListener="#{alimentacionBean.eliminarAlimento()}" 
+                                 rendered="#{not alimentacionBean.nuevo}" update="@form"
+                                 disabled="#{alimentacionBean.alimentoSeleccionado eq null}"
+                                 immediate="true" icon="fa fa-remove">
+                    <p:confirm header="Confirmación" message="¿Está seguro de eliminar el menu?" icon="ui-icon-alert" />
+                </p:commandButton>
             </p:panelGrid>
-            <p:commandButton value="Guardar" actionListener="#{alimentacionBean.guardarCliente()}" rendered="#{not alimentacionBean.enDetalles}" update="@form"/>
-            <p:commandButton value="Cancelar" actionListener="#{alimentacionBean.cancelar()}" immediate="true" update="@form"/>
-        </p:panel>
+
+            <p:panel  header="#{alimentacionBean.tituloFormulario}" style="width: 400px; margin: 30px" rendered="#{alimentacionBean.enNueva || alimentacionBean.enModificar || alimentacionBean.enDetalles || alimentacionBean.nuevo}">
+
+                <p:panelGrid columns="1" styleClass="panel-grid-no-border">
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border" >
+                        <p:outputLabel for="nombre_ali" value="Nombre:" />
+                        <p:inputText id="nombre_ali" value="#{alimentacionBean.alimentacion.nombre}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}"/>
+
+
+                        <p:outputLabel for="categoria_ali" value="Categoría:" />
+                        <p:inputText id="categoria_ali" value="#{alimentacionBean.alimentacion.categoria}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}"/>
+
+
+                        <p:outputLabel for="valor_ali" value="Valor C/U:" />
+                        <p:inputText id="valor_ali" value="#{alimentacionBean.alimentacion.valor}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}">
+                            <f:validateDoubleRange minimum="0.0" maximum="10000.5" />
+                        </p:inputText>
+
+
+                        <p:outputLabel for="detalle_ali" value="Detalle:" />
+                        <p:inputTextarea id="detalle_ali" value="#{alimentacionBean.alimentacion.detalle}" style="width: 100%;" required="true" readonly="#{alimentacionBean.enDetalles}"/>
+
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border center_block">
+                        <p:commandButton value="Guardar" 
+                                         actionListener="#{alimentacionBean.guardarCliente()}" 
+                                         rendered="#{not alimentacionBean.enDetalles}" update="@form" 
+                                         />
+                        <p:commandButton value="Cancelar" 
+                                         actionListener="#{alimentacionBean.cancelar()}"
+                                         update="@form" immediate="true"
+                                         />
+                    </p:panelGrid>
+
+
+                </p:panelGrid>
+
+            </p:panel>
+        </h:form>
+
     </ui:define>
 </ui:composition>

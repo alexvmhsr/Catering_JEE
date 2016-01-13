@@ -117,23 +117,21 @@ public class MobiliarioBean implements Serializable{
         if (this.enNueva)
         {
             try {
-      
+                
                 this.mobiliarioServicio.crearMobiliario(mobiliario);
                 this.enNueva = false;
                 this.listaMobiliario= this.mobiliarioServicio.obtenerTodasMobiliario();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Ficha Creada.", "Se ha creado la " + this.mobiliario);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al crear Ficha.", e.getMessage());
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al crear el mobiliario.", e.getMessage());
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
         } else {
             try {
                 
-                this.tipomobiliarioSeleccionado = new TipoMobiliario();
-                this.tipomobiliarioSeleccionado.setCodigo(this.mobiliario.getCodTipoMobiliario());
-                this.mobiliario.setTipoMobiliario(tipomobiliarioSeleccionado);
-                this.mobiliarioServicio.crearMobiliario(mobiliario);
+                
+                this.mobiliarioServicio.actualizarMobiliario(mobiliario);
                 this.enModificar = false;
                 this.listaMobiliario= this.mobiliarioServicio.obtenerTodasMobiliario();
                 this.listaTipoMobiliario= this.tipomobiliarioServicio.obtenerTipoMobiliario();
@@ -255,7 +253,3 @@ public class MobiliarioBean implements Serializable{
     return "Div_TM.xhtml";
     }
 }
-    
-    
-    
-

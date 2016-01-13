@@ -17,6 +17,8 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
 
+
+
 /**
  *
  * @author Vane
@@ -41,38 +43,38 @@ public class TipoEventoBean implements Serializable{
 
      
      @PostConstruct
-     public void init() {
-         this.ListaTipoEvento = this.tipoEventoServicio.ObtenerTodas();
+     public void inciar() {
+         this.ListaTipoEvento = this.tipoEventoServicio.obtenerTipoEventos();
      }
    
-      public void nuevoTipoMobiliario() {
+      public void nuevoTipoEvento() {
         this.tipoEvento = new TipoEvento();
         this.enNueva = true;
         this.tituloFormulario = "Creación de Tipo de Mobiliario";
     }
 
-    public void modificarTipoMobiliario() {
+    public void modificarTipoEvento() {
         if (this.tipoEventoSeleccionado != null) {
             this.tituloFormulario = "Modificación de Tipo de Mobiliario";
-            this.copiarTipoMobiliarioSeleccionado();
+            this.copiarTipoEventoSeleccionado();
             this.enModificar = true;
         }
     }
 
-    public void detallesTipoMobiliario() {
+    public void detallesTipoEvento() {
         if (this.tipoEventoSeleccionado != null) {
             this.tituloFormulario = "Detalles de Tipo de Mobiliario";
-            this.copiarTipoMobiliarioSeleccionado();
+            this.copiarTipoEventoSeleccionado();
             this.enDetalles = true;
         }
     }
 
-    public void guardarTipoMobiliario() {
+    public void guardarTipoEvento() {
         if (this.enNueva) {
             try {
                 this.tipoEventoServicio.crearTipoEveto(tipoEvento);
                 this.enNueva = false;
-                this.ListaTipoEvento = this.tipoEventoServicio.ObtenerTodas();
+                this.ListaTipoEvento = this.tipoEventoServicio.obtenerTipoEventos();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tipo de Evento Creado.", "Se ha creado el " + this.tipoEvento);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -83,7 +85,7 @@ public class TipoEventoBean implements Serializable{
             try {
                 this.tipoEventoServicio.ActualizarTipoEvento(tipoEvento);
                 this.enModificar = false;
-                this.ListaTipoEvento = this.tipoEventoServicio.ObtenerTodas();
+                this.ListaTipoEvento = this.tipoEventoServicio.obtenerTipoEventos();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Actualizado tipo Evento actualizado.", "Se ha actualizado el " + this.tipoEvento);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -92,12 +94,12 @@ public class TipoEventoBean implements Serializable{
             }
         }
     }
-    public void eliminarTipoMobiliario() {
+    public void eliminarTipoEvento() {
         if (this.tipoEventoSeleccionado != null) {
             try {
-                this.copiarTipoMobiliarioSeleccionado();
+                this.copiarTipoEventoSeleccionado();
                 this.tipoEventoServicio.eliminarTipoEvento(this.tipoEvento.getCodigo());
-                this.ListaTipoEvento = this.tipoEventoServicio.ObtenerTodas();
+                this.ListaTipoEvento = this.tipoEventoServicio.obtenerTipoEventos();
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Tipo de Evento Eliminado.", "Se ha eliminado el tipo " + this.tipoEvento);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
@@ -107,7 +109,7 @@ public class TipoEventoBean implements Serializable{
 
         }
     }
-    private void copiarTipoMobiliarioSeleccionado() {
+    private void copiarTipoEventoSeleccionado() {
         this.tipoEvento = new TipoEvento();
         this.tipoEvento.setCodigo(this.tipoEventoSeleccionado.getCodigo());
         this.tipoEvento.setNombre(this.tipoEventoSeleccionado.getNombre());
@@ -123,8 +125,80 @@ public class TipoEventoBean implements Serializable{
 
     
 
-    public void selectTipoMobiliarioFromDialog(TipoEvento tmpTipoEvento) {
+    public void selectTipoEventoFromDialog(TipoEvento tmpTipoEvento) {
         RequestContext.getCurrentInstance().closeDialog(tmpTipoEvento);
+    }
+
+    public TipoEventoServicio getTipoEventoServicio() {
+        return tipoEventoServicio;
+    }
+
+    public void setTipoEventoServicio(TipoEventoServicio tipoEventoServicio) {
+        this.tipoEventoServicio = tipoEventoServicio;
+    }
+
+    public List<TipoEvento> getListaTipoEvento() {
+        return ListaTipoEvento;
+    }
+
+    public void setListaTipoEvento(List<TipoEvento> ListaTipoEvento) {
+        this.ListaTipoEvento = ListaTipoEvento;
+    }
+
+    public TipoEvento getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(TipoEvento tipoEvento) {
+        this.tipoEvento = tipoEvento;
+    }
+
+    public TipoEvento getTipoEventoSeleccionado() {
+        return tipoEventoSeleccionado;
+    }
+
+    public void setTipoEventoSeleccionado(TipoEvento tipoEventoSeleccionado) {
+        this.tipoEventoSeleccionado = tipoEventoSeleccionado;
+    }
+
+    public String getTituloFormulario() {
+        return tituloFormulario;
+    }
+
+    public void setTituloFormulario(String tituloFormulario) {
+        this.tituloFormulario = tituloFormulario;
+    }
+
+    public boolean isNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(boolean nuevo) {
+        this.nuevo = nuevo;
+    }
+
+    public boolean isEnNueva() {
+        return enNueva;
+    }
+
+    public void setEnNueva(boolean enNueva) {
+        this.enNueva = enNueva;
+    }
+
+    public boolean isEnModificar() {
+        return enModificar;
+    }
+
+    public void setEnModificar(boolean enModificar) {
+        this.enModificar = enModificar;
+    }
+
+    public boolean isEnDetalles() {
+        return enDetalles;
+    }
+
+    public void setEnDetalles(boolean enDetalles) {
+        this.enDetalles = enDetalles;
     }
     
 }

@@ -20,7 +20,9 @@ import javax.ejb.Stateless;
  */
 @LocalBean
 @Stateless
+
 public class EventoServicio {
+    
     @EJB
     EventoDAO eventoDAO;
     

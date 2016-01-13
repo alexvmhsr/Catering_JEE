@@ -5,6 +5,7 @@
  */
 package ec.edu.espe.distribuidas.catering.beans;
 
+import com.espe.distribuidas.catering.modelo.DetalleMobiliario;
 import com.espe.distribuidas.catering.modelo.Paquete;
 import com.espe.distribuidas.catering.servicio.PaqueteServicio;
 import java.io.Serializable;
@@ -33,10 +34,13 @@ public class PaqueteBean implements Serializable{
     /**
      * Creates a new instance of PaqueteBean
      */
-private List<Paquete> paquetes;
+    private List<Paquete> paquetes;
     private Paquete paquete;
-    
     private Paquete paqueteSeleccionado;
+    
+    private List<DetalleMobiliario> detMobiliarios;
+    private DetalleMobiliario detMobiliario;
+    private DetalleMobiliario detMobiliarioSeleccionado;
     
     private String tituloFormulario;
     private boolean nuevo;
@@ -53,17 +57,18 @@ private List<Paquete> paquetes;
     @PostConstruct
     public void postConstructor() {
         this.paquetes = this.paqueteServicio.obtenerTodas();
+        this.detMobiliarios = this.paqueteServicio.obtenerTodasDetalleMobiliario();
     }
 
     public void nuevoPaquete() {
         this.paquete = new Paquete();
         this.enNueva =true;
-        this.tituloFormulario = "Creación de Servicio";
+        this.tituloFormulario = "Creación de Paquete";
     }
     
     public void modificarPaquete() {
         if (this.paqueteSeleccionado!=null) {
-            this.tituloFormulario = "Modificación de Servicio";
+            this.tituloFormulario = "Modificación de Paquete";
             this.copiarPaqueteSeleccionado();
             this.enModificar = true;
         }
@@ -71,7 +76,7 @@ private List<Paquete> paquetes;
                 
     public void detallesPaquete() {
         if (this.paqueteSeleccionado!=null) {
-            this.tituloFormulario = "Detalles de Servicio";
+            this.tituloFormulario = "Detalles de Paquete";
             this.copiarPaqueteSeleccionado();
             this.enDetalles = true;
         }
@@ -82,7 +87,7 @@ private List<Paquete> paquetes;
                 this.paqueteServicio.crearPaquete(this.paquete);
                 this.enNueva = false;
                 this.paquetes = this.paqueteServicio.obtenerTodas();
-                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Factura Creado.", "Se ha creado la "+this.paquete);
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Paquete Creado.", "Se ha creado la "+this.paquete);
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             } catch (Exception e) {
                 FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al crear la factura.", e.getMessage());
@@ -208,6 +213,30 @@ private List<Paquete> paquetes;
 
     public void setPaqueteServicio(PaqueteServicio paqueteServicio) {
         this.paqueteServicio = paqueteServicio;
+    }
+
+    public List<DetalleMobiliario> getDetMobiliarios() {
+        return detMobiliarios;
+    }
+
+    public void setDetMobiliarios(List<DetalleMobiliario> detMobiliarios) {
+        this.detMobiliarios = detMobiliarios;
+    }
+
+    public DetalleMobiliario getDetMobiliario() {
+        return detMobiliario;
+    }
+
+    public void setDetMobiliario(DetalleMobiliario detMobiliario) {
+        this.detMobiliario = detMobiliario;
+    }
+
+    public DetalleMobiliario getDetMobiliarioSeleccionado() {
+        return detMobiliarioSeleccionado;
+    }
+
+    public void setDetMobiliarioSeleccionado(DetalleMobiliario detMobiliarioSeleccionado) {
+        this.detMobiliarioSeleccionado = detMobiliarioSeleccionado;
     }
 
    

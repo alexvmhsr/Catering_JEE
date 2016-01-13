@@ -5,64 +5,106 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:pe="http://primefaces.org/ui/extensions"
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Administración de Clientes</font></h3>
+
+        <h:form id="vistaCliente">
+
+            <h3 style="margin-top:5px; text-align: center"><font color= "black">Administración de Clientes</font></h3>
 
 
 
-        <p:dataTable id="tbl" var="cliente" value="#{clienteBean.clientes}"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     paginator="true" rows="10" style="margin-bottom:20px"
-                     selectionMode="single" selection="#{clienteBean.clienteSeleccionado}" rowKey="#{cliente.codigo}" emptyMessage="No existen registros." >
-            <p:column filterBy="#{cliente.codigo}" headerText="Documento" filterMatchMode="contains" style="width: auto;" >
-                <h:outputText value="#{cliente.codigo}" />
-            </p:column>
-            <p:column filterBy="#{cliente.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{cliente.nombre}" />
-            </p:column>
-            <p:column filterBy="#{cliente.apellido}" headerText="Apellido" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{cliente.apellido}" />
-            </p:column>
+            <p:dataTable id="tbl" var="cliente" value="#{clienteBean.clientes}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         paginator="true" rows="10" style="margin-bottom:20px; margin: 15px"
+                         selectionMode="single" selection="#{clienteBean.clienteSeleccionado}" rowKey="#{cliente.codigo}" emptyMessage="No existen registros." >
+                <p:column filterBy="#{cliente.codigo}" headerText="Documento" filterMatchMode="contains" style="width: auto;" >
+                    <h:outputText value="#{cliente.codigo}" />
+                </p:column>
+                <p:column filterBy="#{cliente.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{cliente.nombre}" />
+                </p:column>
+                <p:column filterBy="#{cliente.apellido}" headerText="Apellido" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{cliente.apellido}" />
+                </p:column>
 
-            <p:column headerText="Teléfono" style="width: auto;">
-                <h:outputText value="#{cliente.telefono}" />
-            </p:column>
+                <p:column headerText="Teléfono" style="width: auto;">
+                    <h:outputText value="#{cliente.telefono}" />
+                </p:column>
+                <p:ajax event="rowSelect" update="@form"/>
 
-        </p:dataTable>    
-        <h:panelGrid columns="5" style="width: 350px">
-            <p:commandButton value="Nuevo" actionListener="#{clienteBean.nuevoCliente()}" update="@form" rendered="#{not clienteBean.nuevo}"/>
-            <p:commandButton value="Modificar" actionListener="#{clienteBean.modificarCliente()}" update="@form" rendered="#{not clienteBean.nuevo}"/>
-            <p:commandButton value="Detalles" actionListener="#{clienteBean.detallesCliente()}" update="@form" rendered="#{not clienteBean.nuevo}"/>
-            <p:commandButton value="Eliminar" actionListener="#{clienteBean.eliminarCliente()}" update="@form" rendered="#{not clienteBean.nuevo}"/>
-        </h:panelGrid>
 
-        <p:panel header="#{clienteBean.tituloFormulario}" style="width: auto" rendered="#{clienteBean.enNueva || clienteBean.enModificar || clienteBean.enDetalles || clienteBean.nuevo}">
-            <p:panelGrid columns="3" style="width: 95%">
-                <p:outputLabel for="cedula" value="Documento:" />
-                <p:inputText id="cedula" value="#{clienteBean.cliente.codigo}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles || clienteBean.enModificar}"/>
-                <p:message for="cedula" />
-                <p:outputLabel for="nombre" value="Nombre:" />
-                <p:inputText id="nombre" value="#{clienteBean.cliente.nombre}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles}"/>
-                <p:message for="nombre" />
-                <p:outputLabel for="apellido" value="Apellido:" />
-                <p:inputText id="apellido" value="#{clienteBean.cliente.apellido}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles}"/>
-                <p:message for="apellido" />
-                <p:outputLabel for="direccion" value="Dirección:" />
-                <p:inputTextarea id="direccion" value="#{clienteBean.cliente.direccion}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles}"/>
-                <p:message for="direccion" />
-                <p:outputLabel for="telefono" value="Teléfono:" />
-                <p:inputText id="telefono" value="#{clienteBean.cliente.telefono}" style="width: 100%;"  readonly="#{clienteBean.enDetalles}"/>
-                <p:message for="telefono" />
-                <p:outputLabel for="email" value="Email:" />
-                <p:inputText id="email" value="#{clienteBean.cliente.correo}" style="width: 100%;"  required="true" readonly="#{clienteBean.enDetalles}">
-                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                </p:inputText>
-                <p:message for="email" />
+            </p:dataTable>    
+            <p:panelGrid columns="4" styleClass="panel-grid-no-border center_block">
+                <p:commandButton value="Nuevo" actionListener="#{clienteBean.nuevoCliente()}" 
+                                 rendered="#{not clienteBean.nuevo}"
+                                 icon="fa fa-plus"
+                                 update="dialog_cliente"
+                                 oncomplete="PF('cliente_dialog_var').show()"/>
+                <p:commandButton value="Modificar" actionListener="#{clienteBean.modificarCliente()}" 
+                                 rendered="#{not clienteBean.nuevo}"
+                                 icon="fa fa-edit" disabled="#{clienteBean.clienteSeleccionado eq null}" 
+                                 update="dialog_cliente"
+                                 oncomplete="PF('cliente_dialog_var').show()"/>
+                <p:commandButton value="Detalles" actionListener="#{clienteBean.detallesCliente()}" 
+                                 rendered="#{not clienteBean.nuevo}"
+                                 icon = "fa fa-info"
+                                 update="dialog_cliente" disabled="#{clienteBean.clienteSeleccionado eq null}"
+                                 oncomplete="PF('cliente_dialog_var').show()"/>
+                <p:commandButton value="Eliminar" actionListener="#{clienteBean.eliminarCliente()}" 
+                                 update="@form" rendered="#{not clienteBean.nuevo}" disabled="#{clienteBean.clienteSeleccionado eq null}"
+                                 immediate="true" icon="fa fa-remove">
+                    <p:confirm header="Confirmación" message="¿Está seguro de eliminar el cliente?" icon="ui-icon-alert" />
+                </p:commandButton>
+
             </p:panelGrid>
-            <p:commandButton value="Guardar" actionListener="#{clienteBean.guardarCliente()}" rendered="#{not clienteBean.enDetalles}" update="@form"/>
-            <p:commandButton value="Cancelar" actionListener="#{clienteBean.cancelar()}" immediate="true" update="@form"/>
-        </p:panel>
+        </h:form>
+
+        <p:dialog id="dialog_cliente" 
+                  widgetVar="cliente_dialog_var" 
+                  draggable="true"
+                  resizable="false" 
+                  header="#{clienteBean.tituloFormulario}"
+                  >
+            <h:form id="podup_cliente">
+                <p:panelGrid columns="1" styleClass="panel-grid-no-border">
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border" >
+                        <p:outputLabel for="cedula" value="Documento:" />
+                        <p:inputText id="cedula" value="#{clienteBean.cliente.codigo}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles || clienteBean.enModificar}"/>
+
+                        <p:outputLabel for="nombre" value="Nombre:" />
+                        <p:inputText id="nombre" value="#{clienteBean.cliente.nombre}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles}"/>
+
+                        <p:outputLabel for="apellido" value="Apellido:" />
+                        <p:inputText id="apellido" value="#{clienteBean.cliente.apellido}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles}"/>
+
+                        <p:outputLabel for="direccion" value="Dirección:" />
+                        <p:inputTextarea id="direccion" value="#{clienteBean.cliente.direccion}" style="width: 100%;" required="true" readonly="#{clienteBean.enDetalles}"/>
+
+                        <p:outputLabel for="telefono" value="Teléfono:" />
+                        <p:inputText id="telefono" value="#{clienteBean.cliente.telefono}" style="width: 100%;"  readonly="#{clienteBean.enDetalles}"/>
+
+                        <p:outputLabel for="email" value="Email:" />
+                        <p:inputText id="email" value="#{clienteBean.cliente.correo}" style="width: 100%;"  required="true" readonly="#{clienteBean.enDetalles}">
+                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                        </p:inputText>
+
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border center_block">
+                        <p:commandButton value="Guardar" 
+                                         actionListener="#{clienteBean.guardarCliente()}" 
+                                         rendered="#{not clienteBean.enDetalles}" 
+                                         update=":vistaCliente" 
+                                         oncomplete="PF('cliente_dialog_var').hide()"/>
+                        <p:commandButton value="Cancelar" 
+                                         actionListener="#{clienteBean.cancelar()}" 
+                                         immediate="true" update="@form" 
+                                         oncomplete="PF('cliente_dialog_var').hide()"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>

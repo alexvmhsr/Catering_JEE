@@ -8,42 +8,86 @@
                 template="Pantillas/principalTemplate.xhtml">
 
     <ui:define name = "principal">  
-        <h3 style="margin-top:0"><font color= "black">Administración de Mobiliario</font></h3>
+        <h:form id="vistaTM">
 
-        <p:dataTable id="tbl" var="tipom" value="#{tipomobiliarioBean.tms}"
-                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                     paginator="true" rows="10" style="margin-bottom:20px"
-                     selectionMode="single" selection="#{tipomobiliarioBean.tmSeleccionado}" rowKey="#{tipom.codigo}" emptyMessage="No existen registros." >
+            <h3 style="margin-top:0; text-align: center"><font color= "black">Administración de Tipo de Mobiliario</font></h3>
 
-            <p:column filterBy="#{tipom.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{tipom.nombre}" />
-            </p:column>
-            <p:column filterBy="#{tipom.descripcion}" headerText="Descripción" style="width: auto;" filterMatchMode="contains" >
-                <h:outputText value="#{tipom.descripcion}" />
-            </p:column>
+            <p:dataTable id="tbl" var="tipom" value="#{tipomobiliarioBean.tms}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         paginator="true" rows="10" style="margin-bottom:20px; margin: 15px"
+                         selectionMode="single" selection="#{tipomobiliarioBean.tmSeleccionado}" rowKey="#{tipom.codigo}" emptyMessage="No existen registros." >
 
-        </p:dataTable>    
-        <h:panelGrid columns="5" style="width: 350px">
-            <p:commandButton value="Nuevo" actionListener="#{tipomobiliarioBean.nuevoTipoMobiliario()}" update="@form" rendered="#{not tipomobiliarioBean.nuevo}"/>
-            <p:commandButton value="Modificar" actionListener="#{tipomobiliarioBean.modificarTipoMobiliario()}" update="@form" rendered="#{not tipomobiliarioBean.nuevo}"/>
-            <p:commandButton value="Detalles" actionListener="#{tipomobiliarioBean.detallesTipoMobiliario()}" update="@form" rendered="#{not tipomobiliarioBean.nuevo}"/>
-            <p:commandButton value="Eliminar" actionListener="#{tipomobiliarioBean.eliminarTipoMobiliario()}" update="@form" rendered="#{not tipomobiliarioBean.nuevo}"/>
-        </h:panelGrid>
-
-        <p:panel header="#{tipomobiliarioBean.tituloFormulario}" style="width: auto" rendered="#{tipomobiliarioBean.enNueva || tipomobiliarioBean.enModificar || tipomobiliarioBean.enDetalles || tipomobiliarioBean.nuevo}">
-            <p:panelGrid columns="3" style="width: 95%">
-
-                <p:outputLabel for="nombre_tm" value="Nombre:" />
-                <p:inputText id="nombre_tm" value="#{tipomobiliarioBean.tm.nombre}" style="width: 100%;" required="true" readonly="#{tipomobiliarioBean.enDetalles}"/>
-                <p:message for="nombre_tm" />
-
-                <p:outputLabel for="descripcion_tm" value="Descripción:" />
-                <p:inputTextarea id="descripcion_tm" value="#{tipomobiliarioBean.tm.descripcion}" style="width: 100%;" required="true" readonly="#{tipomobiliarioBean.enDetalles}"/>
-                <p:message for="descripcion_tm" />
-
+                <p:column filterBy="#{tipom.nombre}" headerText="Nombre" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{tipom.nombre}" />
+                </p:column>
+                <p:column filterBy="#{tipom.descripcion}" headerText="Descripción" style="width: auto;" filterMatchMode="contains" >
+                    <h:outputText value="#{tipom.descripcion}" />
+                </p:column>
+                <p:ajax event="rowSelect" update="@form"/>
+            </p:dataTable>    
+            <p:panelGrid columns="4" styleClass="panel-grid-no-border center_block">
+                <p:commandButton value="Nuevo" 
+                                 actionListener="#{tipomobiliarioBean.nuevoTipoMobiliario()}" 
+                                 rendered="#{not tipomobiliarioBean.nuevo}"
+                                 icon="fa fa-plus"
+                                 update="dialog_TM"
+                                 oncomplete="PF('TM_dialog_var').show()"/>
+                <p:commandButton value="Modificar" 
+                                 actionListener="#{tipomobiliarioBean.modificarTipoMobiliario()}" 
+                                 rendered="#{not tipomobiliarioBean.nuevo}"
+                                 icon="fa fa-edit" disabled="#{tipomobiliarioBean.tmSeleccionado eq null}" 
+                                 update="dialog_TM"
+                                 oncomplete="PF('TM_dialog_var').show()"/>
+                <p:commandButton value="Detalles" 
+                                 actionListener="#{tipomobiliarioBean.detallesTipoMobiliario()}" 
+                                 rendered="#{not tipomobiliarioBean.nuevo}"
+                                 icon = "fa fa-info" disabled="#{tipomobiliarioBean.tmSeleccionado eq null}" 
+                                 update="dialog_TM"
+                                 oncomplete="PF('TM_dialog_var').show()"/>
+                <p:commandButton value="Eliminar" 
+                                 actionListener="#{tipomobiliarioBean.eliminarTipoMobiliario()}" 
+                                 rendered="#{not tipomobiliarioBean.nuevo}" update="@form"
+                                 disabled="#{tipomobiliarioBean.tmSeleccionado eq null}"
+                                 immediate="true" icon="fa fa-remove">
+                    <p:confirm header="Confirmación" message="¿Está seguro de eliminar el tipo de mobiliario?" icon="ui-icon-alert" />
+                </p:commandButton>
             </p:panelGrid>
-            <p:commandButton value="Guardar" actionListener="#{tipomobiliarioBean.guardarTipoMobiliario()}" rendered="#{not tipomobiliarioBean.enDetalles}" update="@form"/>
-            <p:commandButton value="Cancelar" actionListener="#{tipomobiliarioBean.cancelar()}" immediate="true" update="@form"/>
-        </p:panel> 
+        </h:form>
+        <p:dialog id="dialog_TM" 
+                  widgetVar="TM_dialog_var" 
+                  draggable="true"
+                  resizable="false" 
+                  header="#{tipomobiliarioBean.tituloFormulario}"
+                  >
+            <h:form id="podup_alimentacion">
+                <p:panelGrid columns="1" styleClass="panel-grid-no-border">
+                    <p:panelGrid columns="2" styleClass="panel-grid-no-border" >
+
+                        <p:outputLabel for="nombre_tm" value="Nombre:" />
+                        <p:inputText id="nombre_tm" value="#{tipomobiliarioBean.tm.nombre}" style="width: 100%;" required="true" readonly="#{tipomobiliarioBean.enDetalles}"/>
+
+
+                        <p:outputLabel for="descripcion_tm" value="Descripción:" />
+                        <p:inputTextarea id="descripcion_tm" value="#{tipomobiliarioBean.tm.descripcion}" style="width: 100%;" required="true" readonly="#{tipomobiliarioBean.enDetalles}"/>
+
+
+                    </p:panelGrid>
+
+  <p:panelGrid columns="2" styleClass="panel-grid-no-border center_block">
+                    <p:commandButton value="Guardar" 
+                                     actionListener="#{tipomobiliarioBean.guardarTipoMobiliario()}" 
+                                     rendered="#{not tipomobiliarioBean.enDetalles}" 
+                                     update=":vistaTM"
+                                     oncomplete="PF('TM_dialog_var').hide()"/>
+                    <p:commandButton value="Cancelar" 
+                                     actionListener="#{tipomobiliarioBean.cancelar()}" 
+                                     immediate="true" 
+                                     update="@form" oncomplete="PF('TM_dialog_var').hide()"/>
+                </p:panelGrid>
+
+
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
     </ui:define>
 </ui:composition>
